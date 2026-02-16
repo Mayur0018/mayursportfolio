@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import ProjectImage from "./ProjectImage";
 
@@ -12,7 +11,7 @@ interface ProjectCardProps {
   liveUrl: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+export default function ProjectCard({
   number,
   title,
   description,
@@ -20,15 +19,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   imageAlt,
   imagePosition,
   liveUrl,
-}) => {
+}: ProjectCardProps) {
+
+  const isLeft = imagePosition === "left";
+
   const renderDescription = () => {
     if (Array.isArray(description)) {
       return description.map((text, index) => (
-        <p key={index} className="text-neutral-400 mb-4 leading-relaxed">
+        <p
+          key={`${number}-desc-${index}`}
+          className="text-neutral-400 mb-4 leading-relaxed"
+        >
           {text}
         </p>
       ));
     }
+
     return (
       <p className="text-neutral-400 mb-6 leading-relaxed">
         {description}
@@ -39,19 +45,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <motion.article
       className="flex items-center gap-16 max-lg:flex-col"
-      initial={{ opacity: 0, x: imagePosition === "left" ? -40 : 40 }}
+      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
       whileHover={{ scale: 1.01 }}
     >
-
       {/* Image */}
       <div
         className={`flex-1 ${
-          imagePosition === "left"
-            ? "order-1"
-            : "order-2 max-lg:order-1"
+          isLeft ? "order-1" : "order-2 max-lg:order-1"
         }`}
       >
         <ProjectImage src={imageSrc} alt={imageAlt} />
@@ -60,9 +63,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       {/* Content */}
       <div
         className={`flex-1 ${
-          imagePosition === "left"
-            ? "order-2"
-            : "order-1 max-lg:order-2"
+          isLeft ? "order-2" : "order-1 max-lg:order-2"
         }`}
       >
         <div className="text-5xl font-bold mb-6">{number}</div>
@@ -71,7 +72,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {renderDescription()}
 
-        {/* 🔥 WORKING LINK BUTTON */}
         <motion.a
           href={liveUrl}
           target="_blank"
@@ -83,9 +83,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           →
         </motion.a>
       </div>
-
     </motion.article>
   );
-};
-
-export default ProjectCard;
+}
