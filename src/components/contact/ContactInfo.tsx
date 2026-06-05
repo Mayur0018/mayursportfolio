@@ -3,41 +3,40 @@ import { motion } from "framer-motion";
 export default function ContactInfo() {
   return (
     <motion.section 
-      className="flex overflow-hidden flex-col flex-1 shrink justify-center py-5 basis-0 min-w-60 max-md:max-w-full"
+      className="flex flex-col justify-center"
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
       viewport={{ once: true }}
     >
-      <div className="flex flex-col flex-1 justify-center w-full max-md:max-w-full">
-        <div className="w-full max-md:max-w-full">
-          <header className="w-full text-black max-md:max-w-full">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-md:max-w-full">
-              Let&apos;s talk for <br />
-              <span className="font-extrabold">Something special</span>
-            </h2>
-          </header>
-          <p className="mt-5 text-base tracking-wide leading-6 text-zinc-500 max-md:max-w-full">
-            I seek to push the limits of creativity to create high-engaging,
-            user-friendly, and memorable interactive experiences.
-          </p>
-        </div>
-        <address className="mt-10 w-full text-2xl md:text-3xl font-semibold tracking-tight leading-none text-black whitespace-nowrap max-md:max-w-full not-italic">
+      <div className="space-y-6">
+        <header className="text-slate-100">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+            Let&apos;s talk for <br />
+            <span className="text-blue-400">Something special</span>
+          </h2>
+        </header>
+        <p className="text-sm md:text-base leading-relaxed text-slate-400 max-w-md">
+          I seek to push the limits of creativity to create high-engaging,
+          user-friendly, and memorable interactive experiences.
+        </p>
+        
+        <div className="pt-6 space-y-4">
           <motion.a 
             href="mailto:mayurnish18@gmail.com" 
-            className="text-black max-md:max-w-full hover:underline hover:text-gray-700 transition-colors block mb-4"
+            className="text-base md:text-lg font-semibold text-slate-200 hover:text-blue-400 transition-colors block"
             whileHover={{ x: 5 }}
           >
             mayurnish18@gmail.com
           </motion.a>
           <motion.a 
             href="tel:9106481092" 
-            className="block text-black max-md:max-w-full hover:underline hover:text-gray-700 transition-colors"
+            className="text-base md:text-lg font-semibold text-slate-200 hover:text-blue-400 transition-colors block"
             whileHover={{ x: 5 }}
           >
-            9106481092
+            +91 91064 81092
           </motion.a>
-        </address>
+        </div>
       </div>
     </motion.section>
   );

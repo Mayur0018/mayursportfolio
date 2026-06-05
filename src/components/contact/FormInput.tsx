@@ -7,30 +7,30 @@ interface FormInputProps {
 }
 
 export default function FormInput({ placeholder, type = "text", value, onChange, multiline = false }: FormInputProps) {
-  const baseClasses = "w-full px-6 py-5 text-base tracking-tight leading-none rounded border-black border-solid border-[1.4px] text-zinc-500 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-black transition-all duration-300 max-md:px-5 hover:border-gray-800";
+  const baseClasses = "w-full px-6 py-4 text-sm rounded-xl bg-slate-800/50 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 hover:border-white/20";
 
   if (multiline) {
     return (
-      <div className="mt-5 w-full max-w-md text-base tracking-tight leading-5 text-zinc-500">
+      <div className="mt-4 w-full text-base">
         <textarea
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`${baseClasses} min-h-[140px] resize-none leading-5`}
-          rows={6}
+          className={`${baseClasses} min-h-[120px] resize-none leading-relaxed`}
+          rows={4}
         />
       </div>
     );
   }
 
   return (
-    <div className="mt-5 first:mt-0 w-full max-w-md text-base tracking-tight leading-none text-zinc-500">
+    <div className="mt-4 first:mt-0 w-full text-base">
       <input
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${baseClasses} min-h-14`}
+        className={`${baseClasses} h-12`}
       />
     </div>
   );

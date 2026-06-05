@@ -11,56 +11,49 @@ import { motion } from "framer-motion";
  }
  
  export default function SkillCard({
-   title,
-   icon,
-   variant = 'light',
+  title,
+  icon,
   iconType = 'svg',
   iconText,
   iconComponent
- }: SkillCardProps) {
- const cardClasses = variant === 'dark'
-   ? "group flex flex-col justify-center items-center p-4 bg-black rounded-lg border-black aspect-square border-[3px] transition-colors duration-200 hover:bg-black"
-   : "group flex flex-col justify-center items-center p-4 bg-white rounded-lg border-black aspect-square border-[3px] transition-colors duration-200 hover:bg-black";
- 
-  const titleClasses = variant === 'dark'
-    ? "text-lg font-semibold text-white transition-colors"
-    : "text-lg font-semibold text-black transition-colors group-hover:text-white";
- 
+}: SkillCardProps) {
   return (
     <motion.article
-      className={cardClasses}
-      whileHover={{ scale: 1.05, backgroundColor: "#000", color: "#fff" }}
+      className="group flex flex-col justify-center items-center p-4 glass-panel rounded-2xl border border-white/5 aspect-square transition-all duration-300 relative overflow-hidden"
+      whileHover={{ 
+        scale: 1.05, 
+        backgroundColor: "rgba(30, 41, 59, 0.8)",
+        borderColor: "rgba(59, 130, 246, 0.4)",
+        boxShadow: "0 10px 30px -10px rgba(59, 130, 246, 0.3)"
+      }}
       whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.2 }}
     >
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      
       {iconType === 'react' && iconComponent ? (
-        <div className="mb-5 flex items-center justify-center w-14 h-14">
+        <div className="mb-4 flex items-center justify-center w-12 h-12 text-slate-400 group-hover:text-blue-400 transition-all duration-300 relative z-10 group-hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">
           {createElement(iconComponent, {
-            className:
-              variant === 'dark'
-                ? "w-10 h-10 text-white"
-                : "w-10 h-10 text-black group-hover:text-white transition-colors duration-200"
+            className: "w-8 h-8"
           })}
         </div>
       ) : iconType === 'svg' ? (
-        <div className="mb-5 flex items-center justify-center w-14 h-14 [&>svg]:w-10 [&>svg]:h-10 [&>svg]:mb-0 filter transition-all duration-200 group-hover:invert">
-           <div
-             dangerouslySetInnerHTML={{
-               __html: icon || "",
-             }}
-           />
-         </div>
+        <div className="mb-4 flex items-center justify-center w-12 h-12 filter grayscale group-hover:grayscale-0 transition-all duration-300 relative z-10">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: icon || "",
+            }}
+          />
+        </div>
       ) : (
-        <div className="flex justify-center items-center mb-5 w-14 h-14">
-           <div className={variant === 'dark'
-            ? "text-lg font-bold text-white"
-            : "text-xl font-bold text-black transition-colors duration-200 group-hover:text-white"
-           }>
-             {iconText}
-           </div>
-         </div>
+        <div className="flex justify-center items-center mb-4 w-12 h-12 text-slate-400 group-hover:text-blue-400 relative z-10">
+          <div className="text-lg font-bold">
+            {iconText}
+          </div>
+        </div>
       )}
-       <h3 className={titleClasses}>{title}</h3>
+      <h3 className="text-sm font-semibold text-slate-300 group-hover:text-white transition-colors relative z-10">
+        {title}
+      </h3>
     </motion.article>
-   );
- }
+  );
+}

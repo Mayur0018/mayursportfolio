@@ -50,91 +50,88 @@ export  function ContactForm() {
   return (
     <motion.main
       id="contact"
-      className="flex overflow-hidden flex-col justify-center px-20 py-16 bg-white max-md:px-5"
+      className="flex flex-col items-center px-4 py-8 w-full"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
     >
-      <div className="flex overflow-hidden flex-wrap justify-between px-8 max-w-full w-[1280px] max-md:px-5">
-        <section className="flex overflow-hidden flex-col flex-1 shrink justify-center py-5 basis-0 min-w-60 max-md:max-w-full">
-          <motion.form
-            className="flex flex-col items-start w-full max-md:max-w-full"
-            onSubmit={handleSubmit}
-            variants={containerVariants}
-          >
-            <motion.div className="w-full" variants={itemVariants}>
-              <FormInput
-                placeholder="Your name"
-                value={formData.name}
-                onChange={updateField('name')}
-              />
-            </motion.div>
+      <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl max-w-4xl">
+        <header className="mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
+            Let's <span className="text-blue-400">Connect</span>
+          </h2>
+          <p className="text-slate-400 mt-2 text-sm">Have a project in mind? Send me a message!</p>
+        </header>
 
-            <motion.div className="w-full" variants={itemVariants}>
-              <FormInput
-                placeholder="Email"
-                type="email"
-                value={formData.email}
-                onChange={updateField('email')}
-              />
-            </motion.div>
-
-            <motion.div className="w-full" variants={itemVariants}>
-              <FormInput
-                placeholder="Your website (If exists)"
-                type="url"
-                value={formData.website}
-                onChange={updateField('website')}
-              />
-            </motion.div>
-
-            <motion.div className="w-full" variants={itemVariants}>
-              <FormInput
-                placeholder="How can I help?*"
-                value={formData.message}
-                onChange={updateField('message')}
-                multiline
-              />
-            </motion.div>
-
-            <motion.div className="flex flex-wrap gap-6 items-start mt-5 max-md:max-w-full" variants={itemVariants}>
-              <motion.button
-                type="submit"
-                className="flex gap-2 justify-center items-center px-5 py-4 text-xl font-semibold tracking-wide leading-tight text-white bg-black rounded min-h-14 hover:bg-neutral-800 transition-all duration-300 shadow-sm hover:shadow-md"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="self-stretch my-auto text-white">
-                  Get In Touch
-                </span>
-              </motion.button>
-              {status === "error" && (
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-600 text-sm">Please fill name, email and message.</motion.span>
-              )}
-              {status === "success" && (
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-green-600 text-sm">Opening your email app…</motion.span>
-              )}
-
-              <div className="flex gap-4">
-                <SocialButton
-                  icon="https://api.builder.io/api/v1/image/assets/TEMP/c1f0c1721b296aa23bc8afd47513a14f7073868a?placeholderIfAbsent=true&apiKey=cc41b09cf7254ba2b7ac9ef9873ba48a"
-                  variant="filled"
+        <div className="flex flex-wrap gap-12 justify-between">
+          <section className="flex flex-col flex-1 min-w-[300px]">
+            <motion.form
+              className="flex flex-col w-full"
+              onSubmit={handleSubmit}
+              variants={containerVariants}
+            >
+              <motion.div className="w-full" variants={itemVariants}>
+                <FormInput
+                  placeholder="Your name"
+                  value={formData.name}
+                  onChange={updateField('name')}
                 />
+              </motion.div>
 
-                <SocialButton
-                  icon="https://api.builder.io/api/v1/image/assets/TEMP/b6057593893fa0b4b63b26c697fadac633521335?placeholderIfAbsent=true&apiKey=cc41b09cf7254ba2b7ac9ef9873ba48a"
+              <motion.div className="w-full" variants={itemVariants}>
+                <FormInput
+                  placeholder="Email"
+                  type="email"
+                  value={formData.email}
+                  onChange={updateField('email')}
                 />
+              </motion.div>
 
-                <SocialButton
-                  icon="https://api.builder.io/api/v1/image/assets/TEMP/398987ffdc76b87d2dd22b4a1d440a8b9ca63167?placeholderIfAbsent=true&apiKey=cc41b09cf7254ba2b7ac9ef9873ba48a"
+              <motion.div className="w-full" variants={itemVariants}>
+                <FormInput
+                  placeholder="Your website (If exists)"
+                  type="url"
+                  value={formData.website}
+                  onChange={updateField('website')}
                 />
+              </motion.div>
+
+              <motion.div className="w-full" variants={itemVariants}>
+                <FormInput
+                  placeholder="How can I help?*"
+                  value={formData.message}
+                  onChange={updateField('message')}
+                  multiline
+                />
+              </motion.div>
+
+              <motion.div className="mt-8 flex gap-4 items-center" variants={itemVariants}>
+                <button
+                  type="submit"
+                  className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 active:scale-95"
+                >
+                  Send Message
+                </button>
+                {status === 'success' && (
+                  <span className="text-green-400 text-sm font-medium">Message sent!</span>
+                )}
+              </motion.div>
+            </motion.form>
+          </section>
+
+          <section className="flex flex-col flex-1 min-w-[300px] gap-8">
+            <ContactInfo />
+            <div className="flex flex-col gap-4">
+              <h3 className="text-lg font-bold text-slate-200">Social Links</h3>
+              <div className="flex flex-wrap gap-3">
+                <SocialButton company="github" />
+                <SocialButton company="linkedin" />
+                <SocialButton company="twitter" />
               </div>
-            </motion.div>
-          </motion.form>
-        </section>
-
-        <ContactInfo />
+            </div>
+          </section>
+        </div>
       </div>
     </motion.main>
   );

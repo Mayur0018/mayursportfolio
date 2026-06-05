@@ -1,51 +1,44 @@
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+
 interface SocialButtonProps {
-  icon?: string;
-  variant?: 'filled' | 'outlined';
+  company?: 'github' | 'linkedin' | 'twitter';
   onClick?: () => void;
   href?: string;
 }
 
-export default function SocialButton({ icon, variant = 'outlined', onClick, href }: SocialButtonProps) {
-  const baseClasses = "flex gap-2 justify-center items-center px-4 w-14 h-14 rounded min-h-14 transition-all duration-300 hover:scale-110 active:scale-95";
-  const variantClasses = variant === 'filled'
-    ? "bg-black hover:bg-neutral-800 text-white shadow-sm hover:shadow-md"
-    : "border-2 border-black border-solid hover:bg-neutral-50";
+const companyIcons = {
+  github: { icon: FaGithub, link: 'https://github.com/mayur0018', color: 'hover:text-white hover:bg-slate-800' },
+  linkedin: { icon: FaLinkedin, link: 'https://linkedin.com/in/mayur-nishad', color: 'hover:text-blue-400 hover:bg-blue-400/10' },
+  twitter: { icon: FaTwitter, link: 'https://twitter.com', color: 'hover:text-blue-300 hover:bg-blue-300/10' },
+};
 
-  if (href) {
+export default function SocialButton({ company, onClick, href }: SocialButtonProps) {
+  const Icon = company ? companyIcons[company].icon : null;
+  const targetHref = href || (company ? companyIcons[company].link : '#');
+  const hoverStyles = company ? companyIcons[company].color : 'hover:bg-white/10';
+
+  const baseClasses = `flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 glass transition-all duration-300 active:scale-90 ${hoverStyles} text-slate-400`;
+
+  if (targetHref) {
     return (
       <a
-        href={href}
+        href={targetHref}
         target="_blank"
         rel="noreferrer"
-        className={`${baseClasses} ${variantClasses}`}
+        className={baseClasses}
       >
-        {icon ? (
-          <img
-            src={icon}
-            alt="Social media icon"
-            className="object-contain self-stretch my-auto w-5 aspect-square"
-          />
-        ) : (
-          <div className="flex self-stretch my-auto w-5 min-h-5" />
-        )}
+        {Icon && <Icon size={20} />}
       </a>
     );
   }
+
   return (
     <button
-      className={`${baseClasses} ${variantClasses}`}
+      className={baseClasses}
       onClick={onClick}
       type="button"
     >
-      {icon ? (
-        <img
-          src={icon}
-          alt="Social media icon"
-          className="object-contain self-stretch my-auto w-5 aspect-square"
-        />
-      ) : (
-        <div className="flex self-stretch my-auto w-5 min-h-5" />
-      )}
+      {Icon && <Icon size={20} />}
     </button>
   );
 }

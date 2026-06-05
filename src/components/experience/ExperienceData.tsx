@@ -31,25 +31,28 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section
       id="experience"
-      className="flex flex-col items-center px-5 py-20 bg-black min-h-screen max-sm:px-4 max-sm:py-10"
+      className="flex flex-col items-center px-4 py-8 w-full"
     >
-      <header className="mb-20 text-4xl font-bold leading-tight text-white max-sm:mb-10 max-sm:text-4xl">
-        <h1>
-          <span>My</span> Experience
-        </h1>
-      </header>
+      <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl">
+        <header className="mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
+            Professional <span className="text-blue-400">Journey</span>
+          </h2>
+          <p className="text-slate-400 mt-2 text-sm">Where I've been and what I've built</p>
+        </header>
 
-      <div className="flex flex-col gap-8 w-full max-w-[1096px]">
-        {experienceData.map((experience, index) => (
-          <ExperienceCard
-            key={`${experience.company}-${index}`}
-            company={experience.company}
-            title={experience.title}
-            period={experience.period}
-            description={experience.description}
-            highlighted={experience.highlighted}
-          />
-        ))}
+        <div className="flex flex-col max-w-3xl mx-auto">
+          {experienceData.map((experience, index) => (
+            <ExperienceCard
+              key={`${experience.company}-${index}`}
+              company={experience.company}
+              title={experience.title}
+              period={experience.period}
+              description={experience.description}
+              highlighted={experience.highlighted}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

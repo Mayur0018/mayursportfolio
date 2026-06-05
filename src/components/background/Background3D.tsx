@@ -24,7 +24,7 @@ export default function Background3D() {
   const rY = useSpring(rotateY, { stiffness: 80, damping: 20, mass: 0.5 });
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <div className="absolute inset-0 z-0 overflow-hidden">
       <motion.div
         className="absolute inset-0"
         style={{ perspective: 1200 }}

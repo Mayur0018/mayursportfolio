@@ -24,7 +24,7 @@ interface PersonalIntroProps {
     >
       <header className="mb-10">
         <motion.p 
-          className="mb-6 text-4xl leading-snug text-black max-w-[820px]"
+          className="mb-6 text-2xl leading-snug text-black max-w-[820px]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}

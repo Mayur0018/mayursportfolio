@@ -52,26 +52,28 @@ const projectsData: Project[] = [
 const ProjectsSection = () => {
   return (
     <motion.section
-      className="text-white bg-black min-h-screen"
+      id="project"
+      className="flex flex-col items-center px-4 py-8 w-full"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
     >
-      <div className="px-6 md:px-20 py-20 mx-auto max-w-7xl">
+      <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl">
         <motion.header
-          className="mb-24 text-center"
+          className="mb-10 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light">
-            My <span className="font-bold">Projects</span>
-          </h1>
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
+            My <span className="text-blue-400">Projects</span>
+          </h2>
+          <p className="text-slate-400 mt-2 text-sm">A collection of my recent work and side projects</p>
         </motion.header>
 
-        <div className="flex flex-col space-y-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projectsData.map((project) => (
             <ProjectCard
               key={project.number}

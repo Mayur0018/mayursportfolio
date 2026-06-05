@@ -42,38 +42,40 @@ export default function SkillsSection() {
   return (
     <motion.section
       id="skills"
-      className="flex flex-col justify-start items-center px-5 py-20 w-full bg-white min-h-screen"
+      className="flex flex-col justify-start items-center px-4 py-8 w-full"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
     >
-      <motion.header
-        className="mb-16 text-4xl font-bold text-black"
-        variants={itemVariants}
-      >
-        <h1>
-          
-           <div className="font-bold">My Skills</div>
-         </h1>
-      </motion.header>
-      <motion.div 
-        className="grid grid-cols-5 gap-5 w-full max-w-[1200px] max-md:grid-cols-3 max-sm:grid-cols-2"
-        variants={containerVariants}
-      >
-         {skillsData.map((skill, index) => (
-          <motion.div key={`${skill.title}-${index}`} variants={itemVariants}>
-           <SkillCard
-             title={skill.title}
-            icon={""}
-             variant={skill.variant}
-             iconType={skill.iconType}
-            iconText={""}
-            iconComponent={skill.iconComponent}
-           />
-          </motion.div>
-         ))}
-       </motion.div>
+      <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl">
+        <motion.header
+          className="mb-10 text-center"
+          variants={itemVariants}
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
+            Technical <span className="text-blue-400">Toolkit</span>
+          </h2>
+          <p className="text-slate-400 mt-2 text-sm">Technologies I use to bring ideas to life</p>
+        </motion.header>
+        <motion.div 
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+          variants={containerVariants}
+        >
+          {skillsData.map((skill, index) => (
+            <motion.div key={`${skill.title}-${index}`} variants={itemVariants}>
+              <SkillCard
+                title={skill.title}
+                icon={""}
+                variant="dark"
+                iconType={skill.iconType}
+                iconText={""}
+                iconComponent={skill.iconComponent}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </motion.section>
-   );
+  );
  }
