@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import MySkills from "./components/skills/MySkills";
 import ExperienceSection from "./components/experience/ExperienceData";
@@ -11,9 +12,38 @@ import CursorGlow from "./components/background/CursorGlow";
 import GradientBlobs from "./components/background/GradientBlobs";
 import DotGrid from "./components/background/DotGrid";
 import FloatingParticles from "./components/background/FloatingParticles";
-import { FaHome, FaUser, FaBriefcase, FaCode, FaBell, FaSearch, FaEllipsisH, FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
+import { FaHome, FaUser, FaBriefcase, FaCode, FaBell, FaSearch, FaEllipsisH, FaLinkedin, FaGithub, FaTwitter, FaCamera, FaVideo, FaCalendar, FaPen } from "react-icons/fa";
 
 export default function App() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const sections = [
+    { id: "home", name: "About Me", icon: <FaUser /> },
+    { id: "experience", name: "Experience", icon: <FaBriefcase /> },
+    { id: "skills", name: "Skills", icon: <FaCode /> },
+    { id: "project", name: "Projects", icon: <FaHome /> },
+    { id: "testimonial", name: "Testimonials", icon: <FaBell /> },
+    { id: "contact", name: "Contact", icon: <FaUser /> },
+  ];
+
+  const filteredSections = sections.filter(section =>
+    section.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setShowSearchResults(e.target.value.length > 0);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setShowSearchResults(false);
+      setSearchQuery("");
+    }
+  };
   return (
     <div className="min-h-screen bg-[#07111F] text-slate-200 font-sans selection:bg-blue-500/30 relative">
       {/* Premium Background Effects */}
@@ -38,13 +68,37 @@ export default function App() {
           <div className="text-xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-md">
             MN.
           </div>
-          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-blue-500/50 focus-within:bg-slate-800/60 transition-all duration-300">
+          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-blue-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
             <FaSearch className="text-slate-400 mr-2" />
             <input 
               type="text" 
               placeholder="Search developers, projects, skills..." 
               className="bg-transparent border-none outline-none text-sm w-64 focus:w-80 transition-all duration-300 placeholder-slate-500"
+              value={searchQuery}
+              onChange={handleSearch}
+              onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
             />
+            {showSearchResults && filteredSections.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full left-0 right-0 mt-2 bg-slate-800/95 backdrop-blur-sm rounded-xl border border-white/10 shadow-xl overflow-hidden z-50"
+              >
+                {filteredSections.map((section, index) => (
+                  <motion.button
+                    key={section.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    onClick={() => scrollToSection(section.id)}
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-left"
+                  >
+                    <span className="text-blue-400">{section.icon}</span>
+                    <span className="text-sm text-slate-200">{section.name}</span>
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
           </div>
         </motion.div>
         
@@ -92,7 +146,7 @@ export default function App() {
             <div className="px-6 pb-6 -mt-12 text-center relative">
               <div className="relative inline-block">
                 <div className="w-24 h-24 rounded-2xl bg-slate-900 border-4 border-[#07111F] mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.3)] relative z-10">
-                  <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">MN</div>
+                  <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">MN</div>
                 </div>
                 <div className="absolute bottom-4 -right-2 w-5 h-5 bg-green-500 border-4 border-[#07111F] rounded-full z-20 shadow-[0_0_10px_rgba(34,197,94,0.8)]" title="Available for work"></div>
               </div>
@@ -173,16 +227,16 @@ export default function App() {
             </div>
             <div className="flex justify-between px-2 pt-3 border-t border-white/5">
               <button className="flex items-center gap-2 text-slate-400 hover:text-blue-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-blue-500/10 transition-all">
-                <span className="text-blue-400 text-lg">📸</span> <span className="hidden sm:inline">Media</span>
+                <FaCamera className="text-blue-400" size={18} /> <span className="hidden sm:inline">Media</span>
               </button>
               <button className="flex items-center gap-2 text-slate-400 hover:text-green-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-green-500/10 transition-all">
-                <span className="text-green-400 text-lg">🎥</span> <span className="hidden sm:inline">Video</span>
+                <FaVideo className="text-green-400" size={18} /> <span className="hidden sm:inline">Video</span>
               </button>
               <button className="flex items-center gap-2 text-slate-400 hover:text-orange-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-orange-500/10 transition-all">
-                <span className="text-orange-400 text-lg">📅</span> <span className="hidden sm:inline">Event</span>
+                <FaCalendar className="text-orange-400" size={18} /> <span className="hidden sm:inline">Event</span>
               </button>
               <button className="flex items-center gap-2 text-slate-400 hover:text-purple-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-purple-500/10 transition-all">
-                <span className="text-purple-400 text-lg">📝</span> <span className="hidden sm:inline">Article</span>
+                <FaPen className="text-purple-400" size={18} /> <span className="hidden sm:inline">Article</span>
               </button>
             </div>
           </motion.div>
