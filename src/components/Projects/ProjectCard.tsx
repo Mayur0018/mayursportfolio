@@ -71,10 +71,7 @@ export default function ProjectCard({
 
       {/* Post Image */}
       <div className="mt-4 px-3">
-        <div className="rounded-xl overflow-hidden border border-white/10 bg-slate-900/50 relative group/img cursor-pointer">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity z-10 flex items-end justify-center pb-4">
-            <span className="text-white text-sm font-bold bg-blue-600/80 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/20">View Details</span>
-          </div>
+        <div className="rounded-xl overflow-hidden border border-white/10 bg-slate-900/50 relative cursor-pointer">
           <ProjectImage src={imageSrc} alt={imageAlt} />
         </div>
       </div>

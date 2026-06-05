@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import MySkills from "./components/skills/MySkills";
 import ExperienceSection from "./components/experience/ExperienceData";
 import AboutMe from "./components/about/AboutMe";
@@ -22,8 +23,18 @@ export default function App() {
       <CursorGlow />
       
       {/* Top Navigation Bar - Premium Social Style */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 h-16 flex items-center justify-between px-4 md:px-8 shadow-md">
-        <div className="flex items-center gap-8">
+      <motion.nav 
+        className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 h-16 flex items-center justify-between px-4 md:px-8 shadow-md"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <motion.div 
+          className="flex items-center gap-8"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div className="text-xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-md">
             MN.
           </div>
@@ -35,9 +46,14 @@ export default function App() {
               className="bg-transparent border-none outline-none text-sm w-64 focus:w-80 transition-all duration-300 placeholder-slate-500"
             />
           </div>
-        </div>
+        </motion.div>
         
-        <div className="flex items-center gap-6">
+        <motion.div 
+          className="flex items-center gap-6"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <div className="hidden md:flex gap-8 text-slate-400">
             <a href="#home" className="hover:text-blue-400 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(59,130,246,0)] hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"><FaHome size={22} /></a>
             <a href="#about" className="hover:text-blue-400 hover:scale-110 transition-all"><FaUser size={22} /></a>
@@ -54,13 +70,22 @@ export default function App() {
               <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center text-xs font-bold">MN</div>
             </div>
           </div>
-        </div>
-      </nav>
+        </motion.div>
+      </motion.nav>
 
       <main className="pt-24 pb-12 px-4 max-w-7xl mx-auto flex gap-6 relative z-10">
         {/* Left Sidebar - Premium Profile Card */}
-        <aside className="hidden lg:block w-[280px] sticky top-24 h-fit space-y-6">
-          <div className="glass-panel rounded-2xl overflow-hidden border border-white/5">
+        <motion.aside 
+          className="hidden lg:block w-[280px] sticky top-24 h-fit space-y-6"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <motion.div 
+            className="glass-panel rounded-2xl overflow-hidden border border-white/5"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="h-28 bg-gradient-to-r from-blue-600 to-purple-600 relative">
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay"></div>
             </div>
@@ -97,26 +122,47 @@ export default function App() {
                 Download Resume
               </button>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="glass-panel rounded-2xl p-5 border border-white/5">
+          <motion.div 
+            className="glass-panel rounded-2xl p-5 border border-white/5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
               <FaCode className="text-blue-400" /> Tech Stack
             </h3>
             <div className="flex flex-wrap gap-2">
-              {['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Node.js', 'MongoDB', 'Framer Motion'].map(skill => (
-                <span key={skill} className="px-3 py-1.5 rounded-lg bg-slate-800/50 text-xs font-medium text-slate-300 border border-white/5 hover:border-blue-500/50 hover:text-blue-400 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all cursor-default">
+              {['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Node.js', 'MongoDB', 'Framer Motion'].map((skill, i) => (
+                <motion.span 
+                  key={skill} 
+                  className="px-3 py-1.5 rounded-lg bg-slate-800/50 text-xs font-medium text-slate-300 border border-white/5 hover:border-blue-500/50 hover:text-blue-400 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all cursor-default"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.5 + (i * 0.05) }}
+                  whileHover={{ scale: 1.1 }}
+                >
                   {skill}
-                </span>
+                </motion.span>
               ))}
             </div>
-          </div>
-        </aside>
+          </motion.div>
+        </motion.aside>
 
         {/* Main Feed */}
-        <div className="flex-1 space-y-8 max-w-[680px]">
+        <motion.div 
+          className="flex-1 space-y-8 max-w-[680px]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
           {/* Create Post Style Intro */}
-          <div className="glass-panel rounded-2xl p-5 border border-white/5 shadow-lg">
+          <motion.div 
+            className="glass-panel rounded-2xl p-5 border border-white/5 shadow-lg"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex gap-4 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-[2px] shrink-0">
                 <div className="w-full h-full rounded-full bg-[#07111F] flex items-center justify-center text-xs font-bold text-slate-200">MN</div>
@@ -139,36 +185,81 @@ export default function App() {
                 <span className="text-purple-400 text-lg">📝</span> <span className="hidden sm:inline">Article</span>
               </button>
             </div>
-          </div>
+          </motion.div>
 
-          <div id="home">
+          <motion.div 
+            id="home"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <AboutMe />
-          </div>
+          </motion.div>
 
-          <div id="experience">
+          <motion.div 
+            id="experience"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <ExperienceSection />
-          </div>
+          </motion.div>
 
-          <div id="skills">
+          <motion.div 
+            id="skills"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <MySkills />
-          </div>
+          </motion.div>
 
-          <div id="project">
+          <motion.div 
+            id="project"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <ProjectsSection />
-          </div>
+          </motion.div>
 
-          <div id="testimonial">
+          <motion.div 
+            id="testimonial"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <Testimonial />
-          </div>
+          </motion.div>
 
-          <div id="contact">
+          <motion.div 
+            id="contact"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <ContactForm />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Right Sidebar - Premium Widgets */}
-        <aside className="hidden xl:block w-[320px] sticky top-24 h-fit space-y-6">
-          <div className="glass-panel rounded-2xl p-5 border border-white/5">
+        <motion.aside 
+          className="hidden xl:block w-[320px] sticky top-24 h-fit space-y-6"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <motion.div 
+            className="glass-panel rounded-2xl p-5 border border-white/5"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex items-center justify-between mb-5">
               <h3 className="font-bold text-slate-200">Trending Topics</h3>
               <FaEllipsisH className="text-slate-500 hover:text-slate-300 cursor-pointer transition-colors" />
@@ -180,20 +271,30 @@ export default function App() {
                 { label: 'AI Code Assistants', posts: '24.1k posts', trend: 'hot' },
                 { label: 'Framer Motion Tricks', posts: '3.5k posts', trend: 'stable' },
               ].map((trend, i) => (
-                <div key={i} className="group cursor-pointer">
+                <motion.div 
+                  key={i} 
+                  className="group cursor-pointer"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 + (i * 0.1) }}
+                >
                   <div className="flex justify-between items-start">
                     <p className="text-xs text-slate-500 mb-1">Tech • Trending</p>
                     {trend.trend === 'hot' && <span className="text-[10px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full border border-red-400/20">🔥 Hot</span>}
                   </div>
                   <h4 className="font-bold text-slate-200 group-hover:text-blue-400 transition-colors">#{trend.label}</h4>
                   <p className="text-xs text-slate-400 mt-1">{trend.posts}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
             <button className="w-full mt-5 py-2 text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors text-sm font-medium">Show more</button>
-          </div>
+          </motion.div>
 
-          <div className="glass-panel rounded-2xl p-5 border border-white/5 relative overflow-hidden group">
+          <motion.div 
+            className="glass-panel rounded-2xl p-5 border border-white/5 relative overflow-hidden group"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="absolute -right-10 -top-10 w-32 h-32 bg-purple-500/10 blur-[30px] rounded-full group-hover:bg-purple-500/20 transition-all"></div>
             <h3 className="font-bold text-slate-200 mb-4 relative z-10 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></span>
@@ -219,17 +320,27 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="glass-panel rounded-2xl p-5 border border-white/5">
+          <motion.div 
+            className="glass-panel rounded-2xl p-5 border border-white/5"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             <h3 className="font-bold text-slate-200 mb-4">Suggested Connections</h3>
             <div className="space-y-4">
               {[
                 { name: 'Github', handle: '@mayur0018', icon: <FaGithub />, link: 'https://github.com/mayur0018', color: 'from-slate-700 to-slate-900' },
                 { name: 'LinkedIn', handle: '/in/mayur-nishad', icon: <FaLinkedin />, link: 'https://linkedin.com/in/mayur-nishad', color: 'from-blue-600 to-blue-800' },
                 { name: 'Twitter', handle: '@mayur_codes', icon: <FaTwitter />, link: 'https://twitter.com', color: 'from-sky-400 to-sky-600' },
-              ].map(conn => (
-                <div key={conn.name} className="flex items-center justify-between group">
+              ].map((conn, i) => (
+                <motion.div 
+                  key={conn.name} 
+                  className="flex items-center justify-between group"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 + (i * 0.1) }}
+                >
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${conn.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
                       <span className="text-white">{conn.icon}</span>
@@ -247,13 +358,13 @@ export default function App() {
                   >
                     Connect
                   </a>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           <Footer />
-        </aside>
+        </motion.aside>
       </main>
     </div>
   );
