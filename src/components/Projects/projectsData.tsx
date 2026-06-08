@@ -1,22 +1,24 @@
-"use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import api from "../../api/api";
 
 import mayurposhak from "../../assets/mayurposhak.png";
 import skullcandy from "../../assets/skullcandy.png";
 import doctorbooking from "../../assets/healthbuddy.png";
 
 interface Project {
+  _id?: string;
   number: string;
   title: string;
-  description: string | string[];
+  description: string;
   imageSrc: string;
   imageAlt: string;
   imagePosition: "left" | "right";
   liveUrl: string;
 }
 
-const projectsData: Project[] = [
+const defaultProjects: Project[] = [
   {
     number: "01",
     title: "Mayur Poshak – Ecommerce Website",
@@ -50,6 +52,22 @@ const projectsData: Project[] = [
 ];
 
 const ProjectsSection = () => {
+  const [projects, setProjects] = useState<Project[]>(defaultProjects);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const { data } = await api.get("/projects");
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <motion.section
       id="project"
@@ -74,9 +92,9 @@ const ProjectsSection = () => {
         </motion.header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projectsData.map((project) => (
+          {projects.map((project) => (
             <ProjectCard
-              key={project.number}
+              key={project._id || project.number}
               {...project}
             />
           ))}
