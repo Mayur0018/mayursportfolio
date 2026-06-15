@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { Image, Video, Send, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/api';
@@ -35,10 +36,15 @@ const CreatePost = () => {
   if (!userInfo) return null;
 
   return (
-    <div className="glass p-5 rounded-2xl border border-white/5 mb-8">
+    <motion.div 
+      className="glass p-5 rounded-2xl border border-white/5 mb-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <form onSubmit={handleSubmit}>
         <div className="flex gap-4 mb-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-[2px] shrink-0">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-gray-600 p-[2px] shrink-0">
             <div className="w-full h-full rounded-full bg-[#07111F] flex items-center justify-center text-xs font-bold text-white">
               {userInfo.username.substring(0, 2).toUpperCase()}
             </div>
@@ -47,7 +53,7 @@ const CreatePost = () => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Share your latest project or update..."
-            className="flex-1 bg-white/5 rounded-xl px-5 py-3 text-white text-sm outline-none focus:border-blue-500/30 transition-all resize-none min-h-[100px]"
+            className="flex-1 bg-white/5 rounded-xl px-5 py-3 text-white text-sm outline-none focus:border-red-500/30 transition-all resize-none min-h-[100px]"
           />
         </div>
 
@@ -76,7 +82,7 @@ const CreatePost = () => {
                     const url = prompt('Enter image URL:');
                     if (url) { setMediaUrl(url); setMediaType('image'); }
                 }}
-                className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all"
+                className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
             >
               <Image size={20} />
             </button>
@@ -94,13 +100,13 @@ const CreatePost = () => {
           <button
             type="submit"
             disabled={mutation.isPending || !content.trim()}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl text-sm font-bold transition-all disabled:opacity-50"
+            className="flex items-center gap-2 bg-red-700 hover:bg-red-500 text-white px-6 py-2 rounded-xl text-sm font-bold transition-all disabled:opacity-50"
           >
             {mutation.isPending ? 'Posting...' : <><Send size={16} /> Post</>}
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

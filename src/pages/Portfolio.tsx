@@ -6,7 +6,7 @@ import AboutMe from "../components/about/AboutMe";
 import ProjectsSection from "../components/Projects/projectsData";
 import ContactForm from "../components/contact/ContactForm";
 import Testimonial from "../components/testimonial/Testimonial";
-import { FaHome, FaBell, FaSearch, FaLinkedin, FaGithub, FaPen, FaCommentAlt } from "react-icons/fa";
+import { FaHome, FaBell, FaSearch, FaLinkedin, FaGithub, FaPen, FaCommentAlt, FaBars, FaTimes } from "react-icons/fa";
 import useAuthStore from "../store/authStore";
 import { Link } from "react-router-dom";
 import CreatePost from "../components/feed/CreatePost";
@@ -21,6 +21,7 @@ export default function Portfolio() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState({ users: [], posts: [], projects: [] });
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const userInfo = useAuthStore((state) => state.userInfo);
   const logout = useAuthStore((state) => state.logout);
@@ -32,6 +33,14 @@ export default function Portfolio() {
       return data;
     },
     enabled: !!userInfo,
+  });
+
+  const { data: config } = useQuery({
+    queryKey: ['config'],
+    queryFn: async () => {
+      const { data } = await api.get('/config');
+      return data;
+    }
   });
 
   // Debounced search
@@ -58,7 +67,7 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07111F] text-slate-200 font-sans selection:bg-blue-500/30 relative">
+    <div className="min-h-screen bg-[#07111F] text-slate-200 font-sans selection:bg-red-500/30 relative">
       {/* Top Navigation Bar */}
       <motion.nav 
         className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 h-16 flex items-center justify-between px-4 md:px-8 shadow-md"
@@ -72,10 +81,18 @@ export default function Portfolio() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="text-xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-md">
-            MN.
+          <div className="flex items-center gap-4">
+            <button 
+              className="md:hidden text-white"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <FaBars size={24} />
+            </button>
+            <div className="text-xl font-black bg-gradient-to-r from-red-500 to-gray-500 bg-clip-text text-transparent drop-shadow-md">
+              {config?.siteName || 'MN.'}
+            </div>
           </div>
-          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-blue-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
+          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-red-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
             <FaSearch className="text-slate-400 mr-2" />
             <input 
               type="text" 
@@ -103,12 +120,12 @@ export default function Portfolio() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <div className="hidden md:flex gap-8 text-slate-400">
-            <a href="#home" className="hover:text-blue-400 hover:scale-110 transition-all"><FaHome size={22} /></a>
-            <Link to="/messages" className="hover:text-blue-400 hover:scale-110 transition-all relative">
+            <a href="#home" className="hover:text-red-400 hover:scale-110 transition-all"><FaHome size={22} /></a>
+            <Link to="/messages" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaCommentAlt size={20} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
-            <Link to="/notifications" className="hover:text-blue-400 hover:scale-110 transition-all relative">
+            <Link to="/notifications" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaBell size={22} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
@@ -118,7 +135,7 @@ export default function Portfolio() {
             {userInfo ? (
               <div className="flex items-center gap-3">
                 <div 
-                  className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-[2px] cursor-pointer hover:scale-110 transition-transform"
+                  className="w-9 h-9 rounded-full bg-gradient-to-br from-red-500 to-gray-600 p-[2px] cursor-pointer hover:scale-110 transition-transform"
                   onClick={() => setIsEditProfileOpen(true)}
                 >
                   <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center text-xs font-bold overflow-hidden">
@@ -132,7 +149,7 @@ export default function Portfolio() {
                 <button onClick={logout} className="text-xs text-red-400 hover:text-red-300 font-medium">Logout</button>
               </div>
             ) : (
-              <Link to="/login" className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
+              <Link to="/login" className="bg-red-700 hover:bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
             )}
           </div>
         </motion.div>
@@ -140,35 +157,67 @@ export default function Portfolio() {
 
       <main className="pt-24 pb-12 px-4 max-w-7xl mx-auto flex flex-col md:flex-row gap-8 relative z-10">
         {/* Left Sidebar */}
-        <motion.aside className="hidden lg:block w-[280px] sticky top-24 h-fit space-y-6">
+        <motion.aside 
+          className="hidden lg:block w-[280px] sticky top-24 h-fit space-y-6"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div className="glass rounded-2xl overflow-hidden border border-white/5 p-6 text-center">
             <div className="w-20 h-20 rounded-2xl bg-slate-900 border-4 border-[#07111F] mx-auto mb-3 flex items-center justify-center overflow-hidden">
-               <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">MN</div>
+               {config?.profile?.avatar ? (
+                 <img src={config.profile.avatar} alt="Profile" className="w-full h-full object-cover" />
+               ) : (
+                 <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-red-500 to-gray-400">
+                   {config?.profile?.name ? config.profile.name.substring(0, 2).toUpperCase() : 'MN'}
+                 </div>
+               )}
             </div>
-            <h2 className="font-bold text-lg text-white">Mayur Nishad</h2>
-            <p className="text-sm text-blue-400 mb-4">Frontend Developer</p>
+            <h2 className="font-bold text-lg text-white">{config?.profile?.name || 'Mayur Nishad'}</h2>
+            <p className="text-sm text-red-400 mb-4">{config?.profile?.title || 'Frontend Developer'}</p>
             <div className="flex justify-center gap-3 mb-6">
-                <a href="#" className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-white border border-white/5"><FaGithub size={18} /></a>
-                <a href="#" className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-blue-400 border border-white/5"><FaLinkedin size={18} /></a>
+                <a href={config?.socials?.github || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-white border border-white/5"><FaGithub size={18} /></a>
+                <a href={config?.socials?.linkedin || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-red-400 border border-white/5"><FaLinkedin size={18} /></a>
             </div>
-            <button className="w-full py-2 rounded-xl bg-blue-600 text-white text-sm font-bold">View Profile</button>
+            <button className="w-full py-2 rounded-xl bg-red-700 text-white text-sm font-bold">View Profile</button>
           </div>
         </motion.aside>
 
         {/* Main Feed */}
         <div className="flex-1 space-y-8 max-w-[680px]">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <CreatePost />
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <PostFeed />
+          </motion.div>
+          <motion.div id="about" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <AboutMe />
+          </motion.div>
+          <motion.div id="experience" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <ExperienceSection />
+          </motion.div>
+          <motion.div id="skills" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <MySkills />
+          </motion.div>
+          <motion.div id="projects" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <ProjectsSection />
+          </motion.div>
+          <motion.div id="testimonial" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <Testimonial />
+          </motion.div>
+          <motion.div id="contact" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <ContactForm />
+          </motion.div>
         </div>
 
         {/* Right Sidebar */}
-        <motion.aside className="hidden xl:block w-[300px] sticky top-24 h-fit space-y-6">
+        <motion.aside 
+          className="hidden xl:block w-[300px] sticky top-24 h-fit space-y-6"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
             <div className="glass rounded-2xl p-5 border border-white/5">
                 <h3 className="font-bold text-white mb-4">Trending</h3>
                 <div className="space-y-4">
@@ -181,11 +230,65 @@ export default function Portfolio() {
       </main>
 
       {/* Floating Action Button for Mobile */}
-      <div className="fixed bottom-6 right-6 md:hidden z-50">
-        <button className="w-14 h-14 rounded-full bg-blue-500 shadow-lg shadow-blue-500/40 flex items-center justify-center text-white text-xl">
+      <motion.div 
+        className="fixed bottom-6 right-6 md:hidden z-50"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.5 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <button className="w-14 h-14 rounded-full bg-red-500 shadow-lg shadow-red-700/40 flex items-center justify-center text-white text-xl">
           <FaPen />
         </button>
-      </div>
+      </motion.div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="fixed inset-0 z-[100] bg-[#07111F] flex flex-col p-6 overflow-y-auto"
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          >
+            <div className="flex justify-between items-center mb-8">
+              <div className="text-xl font-black bg-gradient-to-r from-red-500 to-gray-500 bg-clip-text text-transparent drop-shadow-md">
+                {config?.siteName || 'MN.'}
+              </div>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="text-white p-2">
+                <FaTimes size={24} />
+              </button>
+            </div>
+            
+            {/* Mobile Profile Summary */}
+            <div className="glass rounded-2xl overflow-hidden border border-white/5 p-6 text-center mb-8">
+              <div className="w-20 h-20 rounded-2xl bg-slate-900 border-4 border-[#07111F] mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                 {config?.profile?.avatar ? (
+                   <img src={config.profile.avatar} alt="Profile" className="w-full h-full object-cover" />
+                 ) : (
+                   <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-red-500 to-gray-400">
+                     {config?.profile?.name ? config.profile.name.substring(0, 2).toUpperCase() : 'MN'}
+                   </div>
+                 )}
+              </div>
+              <h2 className="font-bold text-lg text-white">{config?.profile?.name || 'Mayur Nishad'}</h2>
+              <p className="text-sm text-red-400 mb-4">{config?.profile?.title || 'Frontend Developer'}</p>
+              <div className="flex justify-center gap-3">
+                  <a href={config?.socials?.github || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-white border border-white/5"><FaGithub size={18} /></a>
+                  <a href={config?.socials?.linkedin || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-red-400 border border-white/5"><FaLinkedin size={18} /></a>
+              </div>
+            </div>
+
+            <nav className="flex flex-col gap-6 text-lg font-bold text-slate-300 mb-8">
+              <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaHome /> Home</a>
+              <Link to="/messages" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaCommentAlt /> Messages</Link>
+              <Link to="/notifications" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaBell /> Notifications</Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Modals */}
       <EditProfileModal 

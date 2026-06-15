@@ -25,9 +25,9 @@ export default function Notifications() {
   const getIcon = (type: string) => {
     switch (type) {
       case 'like': return <FaHeart className="text-pink-500" />;
-      case 'comment': return <FaComment className="text-blue-500" />;
+      case 'comment': return <FaComment className="text-red-500" />;
       case 'follow': return <FaUserPlus className="text-green-500" />;
-      case 'message': return <FaEnvelope className="text-purple-500" />;
+      case 'message': return <FaEnvelope className="text-gray-500" />;
       case 'mention': return <FaAt className="text-orange-500" />;
       default: return <FaBell className="text-slate-400" />;
     }
@@ -36,7 +36,7 @@ export default function Notifications() {
   if (isLoading) {
     return (
       <div className="pt-24 flex justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500"></div>
       </div>
     );
   }
@@ -48,7 +48,7 @@ export default function Notifications() {
           <h1 className="text-3xl font-bold text-white">Notifications</h1>
           <p className="text-slate-400 mt-1">Stay updated with your social activity.</p>
         </div>
-        <button className="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-blue-500/10">
+        <button className="text-xs font-bold text-red-400 hover:text-blue-300 transition-colors flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-500/10">
           <FaCheckCircle />
           Mark all as read
         </button>
@@ -59,7 +59,7 @@ export default function Notifications() {
           notifications.map((notification: any) => (
             <motion.div
               key={notification._id}
-              className={`glass p-4 rounded-2xl border transition-all cursor-pointer ${notification.isRead ? 'border-white/5 opacity-70' : 'border-blue-500/20 bg-blue-500/[0.02]'}`}
+              className={`glass p-4 rounded-2xl border transition-all cursor-pointer ${notification.isRead ? 'border-white/5 opacity-70' : 'border-red-500/20 bg-red-500/[0.02]'}`}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               onClick={() => !notification.isRead && markAsReadMutation.mutate(notification._id)}
@@ -89,7 +89,7 @@ export default function Notifications() {
                   </div>
                 </div>
                 {!notification.isRead && (
-                  <div className="w-2 h-2 rounded-full bg-blue-500 self-center"></div>
+                  <div className="w-2 h-2 rounded-full bg-red-500 self-center"></div>
                 )}
               </div>
             </motion.div>

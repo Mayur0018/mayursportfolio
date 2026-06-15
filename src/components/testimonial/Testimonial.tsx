@@ -102,7 +102,7 @@ const Testimonial: React.FC = () => {
       <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl">
         <header className="mb-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
-            Client <span className="text-blue-400">Feedback</span>
+            Client <span className="text-red-400">Feedback</span>
           </h2>
           <p className="text-slate-400 mt-2 text-sm">What people are saying about our collaboration</p>
         </header>
@@ -112,7 +112,7 @@ const Testimonial: React.FC = () => {
             <motion.div
               key={t.name}
               ref={(el) => { cardRefs.current[i] = el; }}
-              className="glass p-6 rounded-2xl border border-white/5 relative group hover:border-blue-500/30 transition-all duration-300"
+              className="glass p-6 rounded-2xl border border-white/5 relative group hover:border-red-500/30 transition-all duration-300"
               variants={itemVariants}
               onMouseMove={(e) => handleMouseMove(e, i)}
               onMouseLeave={handleMouseLeave}
@@ -121,7 +121,7 @@ const Testimonial: React.FC = () => {
                 <img 
                   src={t.image} 
                   alt={t.name} 
-                  className="w-12 h-12 rounded-full border-2 border-blue-500/20 object-cover"
+                  className="w-12 h-12 rounded-full border-2 border-red-500/20 object-cover"
                 />
                 <div>
                   <h4 className="font-bold text-slate-100">{t.name}</h4>
@@ -140,7 +140,7 @@ const Testimonial: React.FC = () => {
               
               {tooltip.visible && tooltip.text === t.name && (
                 <div 
-                  className="absolute pointer-events-none z-50 bg-blue-500 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
+                  className="absolute pointer-events-none z-50 bg-red-500 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
                   style={{ top: tooltip.y + 10, left: tooltip.x + 10 }}
                 >
                   Verified Client

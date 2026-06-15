@@ -46,7 +46,7 @@ const RegisterPage = () => {
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-red-500/50"
               required
             />
           </div>
@@ -56,7 +56,7 @@ const RegisterPage = () => {
               type="text"
               value={formData.username}
               onChange={(e) => setFormData({...formData, username: e.target.value})}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-red-500/50"
               required
             />
           </div>
@@ -66,7 +66,7 @@ const RegisterPage = () => {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-red-500/50"
               required
             />
           </div>
@@ -76,20 +76,20 @@ const RegisterPage = () => {
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-red-500/50"
               required
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50"
+            className="w-full bg-red-700 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50"
           >
             {loading ? 'Creating Account...' : 'Register'}
           </button>
         </form>
         <p className="mt-4 text-center text-slate-400 text-sm">
-          Already have an account? <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
+          Already have an account? <Link to="/login" className="text-red-400 hover:underline">Login</Link>
         </p>
       </motion.div>
     </div>

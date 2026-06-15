@@ -59,7 +59,7 @@ export  function ContactForm() {
       <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl max-w-4xl">
         <header className="mb-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
-            Let's <span className="text-blue-400">Connect</span>
+            Let's <span className="text-red-400">Connect</span>
           </h2>
           <p className="text-slate-400 mt-2 text-sm">Have a project in mind? Send me a message!</p>
         </header>
@@ -109,7 +109,7 @@ export  function ContactForm() {
               <motion.div className="mt-8 flex gap-4 items-center" variants={itemVariants}>
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 active:scale-95"
+                  className="px-8 py-3 bg-red-700 hover:bg-red-500 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-red-700/20 active:scale-95"
                 >
                   Send Message
                 </button>

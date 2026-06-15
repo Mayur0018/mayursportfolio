@@ -42,7 +42,7 @@ const LoginPage = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-red-500/50"
               required
             />
           </div>
@@ -52,20 +52,20 @@ const LoginPage = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-blue-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none focus:border-red-500/50"
               required
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50"
+            className="w-full bg-red-700 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
         <p className="mt-4 text-center text-slate-400 text-sm">
-          Don't have an account? <Link to="/register" className="text-blue-400 hover:underline">Register</Link>
+          Don't have an account? <Link to="/register" className="text-red-400 hover:underline">Register</Link>
         </p>
       </motion.div>
     </div>

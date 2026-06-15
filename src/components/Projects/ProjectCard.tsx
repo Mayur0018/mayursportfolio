@@ -51,7 +51,7 @@ export default function ProjectCard({
       {/* Post Header */}
       <div className="p-4 flex items-center justify-between border-b border-white/5 bg-white/[0.02]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center text-blue-400 font-bold border border-blue-500/30 group-hover:border-blue-400/50 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-600/20 to-gray-500/20 flex items-center justify-center text-red-400 font-bold border border-red-500/30 group-hover:border-red-400/50 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.2)]">
             {number}
           </div>
           <div>
@@ -84,7 +84,7 @@ export default function ProjectCard({
               <FaHeart className="group-active:scale-125 transition-transform" />
               <span className="text-xs font-medium">24</span>
             </button>
-            <button className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors">
+            <button className="flex items-center gap-2 text-slate-400 hover:text-red-400 transition-colors">
               <FaComment />
               <span className="text-xs font-medium">12</span>
             </button>
@@ -97,7 +97,7 @@ export default function ProjectCard({
             href={liveUrl} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-xs font-bold text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-red-400 hover:underline flex items-center gap-1"
           >
             Live Demo <FaExternalLinkAlt size={10} />
           </a>

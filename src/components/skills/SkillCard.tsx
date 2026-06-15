@@ -28,10 +28,10 @@ import { motion } from "framer-motion";
       }}
       whileTap={{ scale: 0.95 }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 to-gray-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
       {iconType === 'react' && iconComponent ? (
-        <div className="mb-4 flex items-center justify-center w-12 h-12 text-slate-400 group-hover:text-blue-400 transition-all duration-300 relative z-10 group-hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">
+        <div className="mb-4 flex items-center justify-center w-12 h-12 text-slate-400 group-hover:text-red-400 transition-all duration-300 relative z-10 group-hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">
           {createElement(iconComponent, {
             className: "w-8 h-8"
           })}
@@ -45,7 +45,7 @@ import { motion } from "framer-motion";
           />
         </div>
       ) : (
-        <div className="flex justify-center items-center mb-4 w-12 h-12 text-slate-400 group-hover:text-blue-400 relative z-10">
+        <div className="flex justify-center items-center mb-4 w-12 h-12 text-slate-400 group-hover:text-red-400 relative z-10">
           <div className="text-lg font-bold">
             {iconText}
           </div>

@@ -32,7 +32,7 @@ export default function AboutMeHeader({ className = "" }: AboutMeHeaderProps) {
         {firstPart}
       </h2>
       {lastPart && (
-        <h2 className="font-extrabold text-blue-400">
+        <h2 className="font-extrabold text-red-400">
           {lastPart}
         </h2>
       )}

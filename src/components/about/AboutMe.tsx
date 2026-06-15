@@ -25,7 +25,7 @@ export function AboutMe() {
             <AboutMeImage />
           </motion.div>
           <motion.div
-            className="flex-1 min-w-[300px]"
+            className="flex-1 min-w-0 w-full md:min-w-[300px]"
             initial={{ x: 30, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}

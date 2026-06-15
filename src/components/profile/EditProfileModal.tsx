@@ -91,7 +91,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
             <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
               <div className="flex flex-col items-center gap-4 mb-6">
                 <div className="relative group">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 p-[2px]">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-red-600 to-gray-500 p-[2px]">
                     <div className="w-full h-full rounded-full bg-[#0f172a] overflow-hidden flex items-center justify-center">
                       {user?.avatar ? (
                         <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
@@ -100,7 +100,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                       )}
                     </div>
                   </div>
-                  <button className="absolute bottom-0 right-0 p-2 bg-blue-500 rounded-full text-white shadow-lg border-2 border-[#0f172a] hover:bg-blue-600 transition-colors">
+                  <button className="absolute bottom-0 right-0 p-2 bg-red-500 rounded-full text-white shadow-lg border-2 border-[#0f172a] hover:bg-red-700 transition-colors">
                     <FaCamera size={12} />
                   </button>
                 </div>
@@ -113,7 +113,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all"
                     placeholder="Enter your name"
                   />
                 </div>
@@ -123,7 +123,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                     type="text"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all"
                     placeholder="e.g. Full Stack Developer"
                   />
                 </div>
@@ -135,7 +135,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                   value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                   rows={4}
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all resize-none"
+                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all resize-none"
                   placeholder="Tell us about yourself..."
                 />
               </div>
@@ -146,7 +146,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                   type="text"
                   value={formData.skills}
                   onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all"
+                  className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all"
                   placeholder="React, Node.js, Tailwind..."
                 />
               </div>
@@ -158,7 +158,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                     type="text"
                     value={formData.github}
                     onChange={(e) => setFormData({ ...formData, github: e.target.value })}
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all"
                     placeholder="Username"
                   />
                 </div>
@@ -168,7 +168,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                     type="text"
                     value={formData.linkedin}
                     onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all"
                     placeholder="Username"
                   />
                 </div>
@@ -178,7 +178,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
                     type="text"
                     value={formData.twitter}
                     onChange={(e) => setFormData({ ...formData, twitter: e.target.value })}
-                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-blue-500/50 transition-all"
+                    className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-red-500/50 transition-all"
                     placeholder="Username"
                   />
                 </div>
@@ -196,7 +196,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
               <button
                 onClick={handleSubmit}
                 disabled={mutation.isPending}
-                className="px-8 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500/50 text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 flex items-center gap-2 transition-all"
+                className="px-8 py-2 bg-red-500 hover:bg-red-700 disabled:bg-red-500/50 text-white rounded-xl font-bold shadow-lg shadow-red-700/20 flex items-center gap-2 transition-all"
               >
                 {mutation.isPending ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

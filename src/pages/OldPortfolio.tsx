@@ -59,7 +59,7 @@ export default function Portfolio() {
     }
   };
   return (
-    <div className="min-h-screen bg-[#07111F] text-slate-200 font-sans selection:bg-blue-500/30 relative">
+    <div className="min-h-screen bg-[#07111F] text-slate-200 font-sans selection:bg-red-500/30 relative">
       {/* Premium Background Effects */}
       <DotGrid />
       <GradientBlobs />
@@ -79,10 +79,10 @@ export default function Portfolio() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="text-xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-md">
+          <div className="text-xl font-black bg-gradient-to-r from-red-500 to-gray-500 bg-clip-text text-transparent drop-shadow-md">
             {config?.siteName || 'MN.'}
           </div>
-          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-blue-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
+          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-red-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
             <FaSearch className="text-slate-400 mr-2" />
             <input 
               type="text" 
@@ -107,7 +107,7 @@ export default function Portfolio() {
                     onClick={() => scrollToSection(section.id)}
                     className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-left"
                   >
-                    <span className="text-blue-400">{section.icon}</span>
+                    <span className="text-red-400">{section.icon}</span>
                     <span className="text-sm text-slate-200">{section.name}</span>
                   </motion.button>
                 ))}
@@ -123,12 +123,12 @@ export default function Portfolio() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <div className="hidden md:flex gap-8 text-slate-400">
-            <a href="#home" className="hover:text-blue-400 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(59,130,246,0)] hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"><FaHome size={22} /></a>
-            <Link to="/messages" className="hover:text-blue-400 hover:scale-110 transition-all relative">
+            <a href="#home" className="hover:text-red-400 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(59,130,246,0)] hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"><FaHome size={22} /></a>
+            <Link to="/messages" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaCommentAlt size={20} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
-            <Link to="/notifications" className="hover:text-blue-400 hover:scale-110 transition-all relative">
+            <Link to="/notifications" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaBell size={22} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
@@ -137,7 +137,7 @@ export default function Portfolio() {
           <div className="flex items-center gap-4">
             {userInfo ? (
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-[2px] cursor-pointer hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-red-500 to-gray-600 p-[2px] cursor-pointer hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all">
                   <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center text-xs font-bold">
                     {userInfo.username.substring(0, 2).toUpperCase()}
                   </div>
@@ -145,7 +145,7 @@ export default function Portfolio() {
                 <button onClick={logout} className="text-xs text-red-400 hover:text-red-300 font-medium">Logout</button>
               </div>
             ) : (
-              <Link to="/login" className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
+              <Link to="/login" className="bg-red-700 hover:bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
             )}
           </div>
         </motion.div>
@@ -164,13 +164,13 @@ export default function Portfolio() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="h-28 bg-gradient-to-r from-blue-600 to-purple-600 relative">
+            <div className="h-28 bg-gradient-to-r from-blue-600 to-gray-600 relative">
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay"></div>
             </div>
             <div className="px-6 pb-6 -mt-12 text-center relative">
               <div className="relative inline-block">
                 <div className="w-24 h-24 rounded-2xl bg-slate-900 border-4 border-[#07111F] mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.3)] relative z-10">
-                  <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">
+                  <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-red-500 to-gray-400">
                     {config?.profile?.name?.substring(0, 2).toUpperCase() || 'MN'}
                   </div>
                 </div>
@@ -179,26 +179,26 @@ export default function Portfolio() {
               
               <h2 className="font-bold text-lg text-white tracking-wide">{config?.profile?.name || 'Mayur Nishad'}</h2>
               <div className="h-6 mt-1 mb-4">
-                <p className="text-sm text-blue-400 font-medium typing-effect inline-block">{config?.profile?.title || 'Frontend Developer & Designer'}</p>
+                <p className="text-sm text-red-400 font-medium typing-effect inline-block">{config?.profile?.title || 'Frontend Developer & Designer'}</p>
               </div>
               
               <div className="flex justify-center gap-3 mb-6">
                 <a href={config?.socials?.github || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/5"><FaGithub size={18} /></a>
-                <a href={config?.socials?.linkedin || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-400 transition-colors border border-white/5"><FaLinkedin size={18} /></a>
+                <a href={config?.socials?.linkedin || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-red-400 transition-colors border border-white/5"><FaLinkedin size={18} /></a>
                 <a href={config?.socials?.twitter || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-300 transition-colors border border-white/5"><FaTwitter size={18} /></a>
               </div>
 
               <div className="border-t border-white/5 py-4 text-left text-sm space-y-4">
                 <div className="flex justify-between items-center group cursor-pointer">
                   <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Followers</span>
-                  <span className="text-blue-400 font-bold group-hover:text-blue-300">{config?.profile?.stats?.followers || '1.2k'}</span>
+                  <span className="text-red-400 font-bold group-hover:text-blue-300">{config?.profile?.stats?.followers || '1.2k'}</span>
                 </div>
                 <div className="flex justify-between items-center group cursor-pointer">
                   <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Following</span>
-                  <span className="text-purple-400 font-bold group-hover:text-purple-300">{config?.profile?.stats?.following || '450'}</span>
+                  <span className="text-gray-400 font-bold group-hover:text-purple-300">{config?.profile?.stats?.following || '450'}</span>
                 </div>
               </div>
-              <button className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] text-sm font-bold text-white uppercase tracking-wider">
+              <button className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-gray-600 hover:from-red-600 hover:to-gray-500 transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] text-sm font-bold text-white uppercase tracking-wider">
                 Download Resume
               </button>
             </div>
@@ -211,13 +211,13 @@ export default function Portfolio() {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <FaCode className="text-blue-400" /> Tech Stack
+              <FaCode className="text-red-400" /> Tech Stack
             </h3>
             <div className="flex flex-wrap gap-2">
               {['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Node.js', 'MongoDB', 'Framer Motion'].map((skill, i) => (
                 <motion.span 
                   key={skill} 
-                  className="px-3 py-1.5 rounded-lg bg-slate-800/50 text-xs font-medium text-slate-300 border border-white/5 hover:border-blue-500/50 hover:text-blue-400 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all cursor-default"
+                  className="px-3 py-1.5 rounded-lg bg-slate-800/50 text-xs font-medium text-slate-300 border border-white/5 hover:border-red-500/50 hover:text-red-400 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all cursor-default"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.5 + (i * 0.05) }}
@@ -244,16 +244,16 @@ export default function Portfolio() {
             transition={{ duration: 0.3 }}
           >
             <div className="flex gap-4 mb-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-[2px] shrink-0">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-gray-600 p-[2px] shrink-0">
                 <div className="w-full h-full rounded-full bg-[#07111F] flex items-center justify-center text-xs font-bold text-slate-200">MN</div>
               </div>
-              <div className="flex-1 bg-slate-800/30 rounded-2xl px-5 py-3 text-slate-400 text-sm cursor-text border border-white/5 hover:bg-slate-800/50 hover:border-blue-500/30 transition-all group">
+              <div className="flex-1 bg-slate-800/30 rounded-2xl px-5 py-3 text-slate-400 text-sm cursor-text border border-white/5 hover:bg-slate-800/50 hover:border-red-500/30 transition-all group">
                 <span className="group-hover:text-slate-300 transition-colors">Share your latest project or update...</span>
               </div>
             </div>
             <div className="flex justify-between px-2 pt-3 border-t border-white/5">
-              <button className="flex items-center gap-2 text-slate-400 hover:text-blue-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-blue-500/10 transition-all">
-                <FaCamera className="text-blue-400" size={18} /> <span className="hidden sm:inline">Media</span>
+              <button className="flex items-center gap-2 text-slate-400 hover:text-red-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-red-500/10 transition-all">
+                <FaCamera className="text-red-400" size={18} /> <span className="hidden sm:inline">Media</span>
               </button>
               <button className="flex items-center gap-2 text-slate-400 hover:text-green-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-green-500/10 transition-all">
                 <FaVideo className="text-green-400" size={18} /> <span className="hidden sm:inline">Video</span>
@@ -261,8 +261,8 @@ export default function Portfolio() {
               <button className="flex items-center gap-2 text-slate-400 hover:text-orange-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-orange-500/10 transition-all">
                 <FaCalendar className="text-orange-400" size={18} /> <span className="hidden sm:inline">Event</span>
               </button>
-              <button className="flex items-center gap-2 text-slate-400 hover:text-purple-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-purple-500/10 transition-all">
-                <FaPen className="text-purple-400" size={18} /> <span className="hidden sm:inline">Article</span>
+              <button className="flex items-center gap-2 text-slate-400 hover:text-gray-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-purple-500/10 transition-all">
+                <FaPen className="text-gray-400" size={18} /> <span className="hidden sm:inline">Article</span>
               </button>
             </div>
           </motion.div>
@@ -362,12 +362,12 @@ export default function Portfolio() {
                     <p className="text-xs text-slate-500 mb-1">Tech • Trending</p>
                     {trend.trend === 'hot' && <span className="text-[10px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full border border-red-400/20">🔥 Hot</span>}
                   </div>
-                  <h4 className="font-bold text-slate-200 group-hover:text-blue-400 transition-colors">#{trend.label}</h4>
+                  <h4 className="font-bold text-slate-200 group-hover:text-red-400 transition-colors">#{trend.label}</h4>
                   <p className="text-xs text-slate-400 mt-1">{trend.posts}</p>
                 </motion.div>
               ))}
             </div>
-            <button className="w-full mt-5 py-2 text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors text-sm font-medium">Show more</button>
+            <button className="w-full mt-5 py-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors text-sm font-medium">Show more</button>
           </motion.div>
 
           <motion.div 
@@ -382,16 +382,16 @@ export default function Portfolio() {
             </h3>
             <div className="space-y-4 relative z-10">
               <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 shrink-0">
                   <FaGithub size={14} />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-300">Pushed <span className="font-bold text-white">4 commits</span> to <span className="text-blue-400 cursor-pointer hover:underline">mayur-portfolio</span></p>
+                  <p className="text-sm text-slate-300">Pushed <span className="font-bold text-white">4 commits</span> to <span className="text-red-400 cursor-pointer hover:underline">mayur-portfolio</span></p>
                   <p className="text-xs text-slate-500 mt-1">2 hours ago</p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+                <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-gray-400 shrink-0">
                   <FaCode size={14} />
                 </div>
                 <div>
@@ -434,7 +434,7 @@ export default function Portfolio() {
                     href={conn.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-bold px-4 py-1.5 rounded-full border border-slate-600 text-slate-300 hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/10 transition-all"
+                    className="text-xs font-bold px-4 py-1.5 rounded-full border border-slate-600 text-slate-300 hover:border-red-500 hover:text-red-400 hover:bg-red-500/10 transition-all"
                   >
                     Connect
                   </a>

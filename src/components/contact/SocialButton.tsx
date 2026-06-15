@@ -8,7 +8,7 @@ interface SocialButtonProps {
 
 const companyIcons = {
   github: { icon: FaGithub, link: 'https://github.com/mayur0018', color: 'hover:text-white hover:bg-slate-800' },
-  linkedin: { icon: FaLinkedin, link: 'https://linkedin.com/in/mayur-nishad', color: 'hover:text-blue-400 hover:bg-blue-400/10' },
+  linkedin: { icon: FaLinkedin, link: 'https://linkedin.com/in/mayur-nishad', color: 'hover:text-red-400 hover:bg-blue-400/10' },
   twitter: { icon: FaTwitter, link: 'https://twitter.com', color: 'hover:text-blue-300 hover:bg-blue-300/10' },
 };
 

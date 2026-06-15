@@ -1,5 +1,5 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { Heart, MessageSquare, Share2, MoreHorizontal } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import api from '../../api/api';
@@ -45,11 +45,17 @@ const PostFeed = () => {
 
   return (
     <div className="space-y-6 pb-10">
-      {posts?.map((post: any) => (
-        <article key={post._id} className="glass p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-all group">
+      {posts?.map((post: any, index: number) => (
+        <motion.article 
+          key={post._id} 
+          className="glass p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-all group"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
           <div className="flex justify-between items-start mb-4">
             <div className="flex gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-[2px] shrink-0">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-gray-600 p-[2px] shrink-0">
                 <div className="w-full h-full rounded-full bg-[#07111F] flex items-center justify-center text-xs font-bold text-white overflow-hidden">
                   {post.user.avatar ? (
                     <img src={post.user.avatar} alt={post.user.username} className="w-full h-full object-cover" />
@@ -59,7 +65,7 @@ const PostFeed = () => {
                 </div>
               </div>
               <div>
-                <h4 className="font-bold text-white group-hover:text-blue-400 transition-colors">{post.user.name}</h4>
+                <h4 className="font-bold text-white group-hover:text-red-400 transition-colors">{post.user.name}</h4>
                 <div className="flex items-center gap-2 text-[10px] text-slate-500">
                   <span>@{post.user.username}</span>
                   <span>•</span>
@@ -94,7 +100,7 @@ const PostFeed = () => {
               <Heart size={18} className={post.likes.includes(userInfo?._id) ? 'fill-current' : ''} />
               {post.likes.length}
             </button>
-            <button className="flex items-center gap-2 text-slate-500 hover:text-blue-400 text-xs font-medium transition-all">
+            <button className="flex items-center gap-2 text-slate-500 hover:text-red-400 text-xs font-medium transition-all">
               <MessageSquare size={18} />
               0
             </button>
@@ -103,7 +109,7 @@ const PostFeed = () => {
               0
             </button>
           </div>
-        </article>
+        </motion.article>
       ))}
     </div>
   );

@@ -49,7 +49,7 @@ export const ExperienceSection: React.FC = () => {
       <div className="w-full glass-panel rounded-2xl p-6 md:p-10 border border-white/5 shadow-xl">
         <header className="mb-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
-            Professional <span className="text-blue-400">Journey</span>
+            Professional <span className="text-red-400">Journey</span>
           </h2>
           <p className="text-slate-400 mt-2 text-sm">Where I've been and what I've built</p>
         </header>

@@ -7,7 +7,7 @@ interface FormInputProps {
 }
 
 export default function FormInput({ placeholder, type = "text", value, onChange, multiline = false }: FormInputProps) {
-  const baseClasses = "w-full px-6 py-4 text-sm rounded-xl bg-slate-800/50 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 hover:border-white/20";
+  const baseClasses = "w-full px-6 py-4 text-sm rounded-xl bg-slate-800/50 border border-white/10 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all duration-300 hover:border-white/20";
 
   if (multiline) {
     return (

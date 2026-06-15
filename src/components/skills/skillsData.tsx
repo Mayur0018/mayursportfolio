@@ -74,7 +74,7 @@ export default function SkillsSection() {
           variants={itemVariants}
         >
           <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
-            Technical <span className="text-blue-400">Toolkit</span>
+            Technical <span className="text-red-400">Toolkit</span>
           </h2>
           <p className="text-slate-400 mt-2 text-sm">Technologies I use to bring ideas to life</p>
         </motion.header>

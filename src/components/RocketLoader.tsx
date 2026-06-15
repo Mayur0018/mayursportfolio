@@ -40,13 +40,13 @@ function Rocket({ launched }: { launched: boolean }) {
       {/* ── Body ── */}
       <mesh position={[0, 0, 0]}>
         <cylinderGeometry args={[0.35, 0.45, 2.2, 32]} />
-        <meshStandardMaterial color="#2D9CFF" metalness={0.4} roughness={0.3} />
+        <meshStandardMaterial color="#E53E3E" metalness={0.4} roughness={0.3} />
       </mesh>
 
       {/* ── Nose cone ── */}
       <mesh position={[0, 1.5, 0]}>
         <coneGeometry args={[0.35, 0.9, 32]} />
-        <meshStandardMaterial color="#FF4F6D" metalness={0.5} roughness={0.2} />
+        <meshStandardMaterial color="#C53030" metalness={0.5} roughness={0.2} />
       </mesh>
 
       {/* ── Window ── */}
@@ -58,19 +58,19 @@ function Rocket({ launched }: { launched: boolean }) {
       {/* ── Left Fin ── */}
       <mesh position={[-0.55, -0.8, 0]} rotation={[0, 0, -0.5]}>
         <boxGeometry args={[0.55, 0.9, 0.08]} />
-        <meshStandardMaterial color="#FF4F6D" metalness={0.3} roughness={0.4} />
+        <meshStandardMaterial color="#C53030" metalness={0.3} roughness={0.4} />
       </mesh>
 
       {/* ── Right Fin ── */}
       <mesh position={[0.55, -0.8, 0]} rotation={[0, 0, 0.5]}>
         <boxGeometry args={[0.55, 0.9, 0.08]} />
-        <meshStandardMaterial color="#FF4F6D" metalness={0.3} roughness={0.4} />
+        <meshStandardMaterial color="#C53030" metalness={0.3} roughness={0.4} />
       </mesh>
 
       {/* ── Back Fin ── */}
       <mesh position={[0, -0.8, -0.55]} rotation={[0.5, 0, 0]}>
         <boxGeometry args={[0.08, 0.9, 0.55]} />
-        <meshStandardMaterial color="#FF4F6D" metalness={0.3} roughness={0.4} />
+        <meshStandardMaterial color="#C53030" metalness={0.3} roughness={0.4} />
       </mesh>
 
       {/* ── Engine nozzle ── */}
@@ -84,7 +84,7 @@ function Rocket({ launched }: { launched: boolean }) {
         <coneGeometry args={[0.25, 1.0, 24]} />
         <meshStandardMaterial
           color="#FFC83D"
-          emissive="#FF4F6D"
+          emissive="#C53030"
           emissiveIntensity={2}
           transparent
           opacity={0.9}
@@ -95,7 +95,7 @@ function Rocket({ launched }: { launched: boolean }) {
       <mesh position={[0, -2.1, 0]}>
         <coneGeometry args={[0.15, 0.7, 24]} />
         <meshStandardMaterial
-          color="#FF4F6D"
+          color="#C53030"
           emissive="#FFC83D"
           emissiveIntensity={1.5}
           transparent
@@ -113,8 +113,8 @@ function Scene({ launched }: { launched: boolean }) {
       {/* Lighting */}
       <ambientLight intensity={1.2} />
       <directionalLight position={[5, 10, 5]} intensity={2} color="#ffffff" />
-      <pointLight position={[0, -3, 2]} intensity={4} color="#FF4F6D" distance={6} />
-      <pointLight position={[0, 0, 3]} intensity={2} color="#2D9CFF" distance={8} />
+      <pointLight position={[0, -3, 2]} intensity={4} color="#C53030" distance={6} />
+      <pointLight position={[0, 0, 3]} intensity={2} color="#E53E3E" distance={8} />
 
       {/* Light floating particles instead of stars */}
       <Stars radius={80} depth={60} count={800} factor={3} saturation={0.5} fade speed={launched ? 2 : 0.5} />
@@ -123,7 +123,7 @@ function Scene({ launched }: { launched: boolean }) {
       <Trail
         width={1.2}
         length={6}
-        color={new THREE.Color("#FF4F6D")}
+        color={new THREE.Color("#C53030")}
         attenuation={(t) => t * t}
       >
         <Rocket launched={launched} />
@@ -187,7 +187,7 @@ export default function RocketLoader({ onDone }: { onDone: () => void }) {
                   {[0, 1, 2].map((i) => (
                     <motion.div
                       key={i}
-                      className="w-1.5 h-1.5 rounded-full bg-[#FF4F6D]"
+                      className="w-1.5 h-1.5 rounded-full bg-[#C53030]"
                       animate={{ opacity: [0.3, 1, 0.3] }}
                       transition={{ repeat: Infinity, duration: 1, delay: i * 0.3 }}
                     />

@@ -85,7 +85,7 @@ export default function Messages() {
             <input 
               type="text" 
               placeholder="Search conversations..." 
-              className="w-full bg-slate-800/50 border border-white/5 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500/30 transition-all"
+              className="w-full bg-slate-800/50 border border-white/5 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-red-500/30 transition-all"
             />
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function Messages() {
               <div 
                 key={conv.user._id}
                 onClick={() => setSelectedUser(conv.user)}
-                className={`p-4 flex gap-3 hover:bg-white/5 cursor-pointer transition-all border-l-2 ${selectedUser?._id === conv.user._id ? 'bg-blue-500/5 border-blue-500' : 'border-transparent'}`}
+                className={`p-4 flex gap-3 hover:bg-white/5 cursor-pointer transition-all border-l-2 ${selectedUser?._id === conv.user._id ? 'bg-red-500/5 border-red-500' : 'border-transparent'}`}
               >
                 <div className="relative">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-800 border border-white/10">
@@ -152,11 +152,11 @@ export default function Messages() {
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-900/10">
               {isMsgLoading ? (
-                <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500" /></div>
+                <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-t-2 border-red-500" /></div>
               ) : (
                 messages?.map((msg: any) => (
                   <div key={msg._id} className={`flex ${msg.sender._id === userInfo?._id ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[75%] rounded-2xl p-3 text-sm ${msg.sender._id === userInfo?._id ? 'bg-blue-600 text-white rounded-tr-none shadow-lg shadow-blue-600/20' : 'bg-slate-800 text-slate-200 rounded-tl-none border border-white/5'}`}>
+                    <div className={`max-w-[75%] rounded-2xl p-3 text-sm ${msg.sender._id === userInfo?._id ? 'bg-red-700 text-white rounded-tr-none shadow-lg shadow-blue-600/20' : 'bg-slate-800 text-slate-200 rounded-tl-none border border-white/5'}`}>
                       <p>{msg.content}</p>
                       <div className={`text-[9px] mt-1.5 font-medium ${msg.sender._id === userInfo?._id ? 'text-blue-100' : 'text-slate-500'}`}>
                         {format(new Date(msg.createdAt), 'HH:mm')}
@@ -176,12 +176,12 @@ export default function Messages() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Type a message..." 
-                  className="flex-1 bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/30 transition-all"
+                  className="flex-1 bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-500/30 transition-all"
                 />
                 <button 
                   type="submit"
                   disabled={!message.trim() || sendMessageMutation.isPending}
-                  className="w-12 h-12 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white rounded-xl flex items-center justify-center transition-all shadow-lg shadow-blue-500/20"
+                  className="w-12 h-12 bg-red-500 hover:bg-red-700 disabled:opacity-50 text-white rounded-xl flex items-center justify-center transition-all shadow-lg shadow-red-700/20"
                 >
                   <FaPaperPlane />
                 </button>

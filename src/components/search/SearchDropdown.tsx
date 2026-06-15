@@ -39,7 +39,7 @@ export default function SearchDropdown({ results, isVisible, onSelect }: SearchD
                     className="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors"
                     onClick={onSelect}
                   >
-                    <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 border border-blue-500/20 overflow-hidden">
+                    <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 border border-red-500/20 overflow-hidden">
                       {user.avatar ? <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" /> : <FaUser size={14} />}
                     </div>
                     <div>
@@ -62,7 +62,7 @@ export default function SearchDropdown({ results, isVisible, onSelect }: SearchD
                     className="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors"
                     onClick={onSelect}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 border border-purple-500/20 overflow-hidden">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-gray-400 border border-purple-500/20 overflow-hidden">
                       <FaCode size={14} />
                     </div>
                     <div>

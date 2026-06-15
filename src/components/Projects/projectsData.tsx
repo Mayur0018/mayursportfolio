@@ -79,7 +79,7 @@ const ProjectsSection = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center py-20 w-full">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-red-500"></div>
       </div>
     );
   }
@@ -102,7 +102,7 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
-            My <span className="text-blue-400">Projects</span>
+            My <span className="text-red-400">Projects</span>
           </h2>
           <p className="text-slate-400 mt-2 text-sm">A collection of my recent work and side projects</p>
         </motion.header>

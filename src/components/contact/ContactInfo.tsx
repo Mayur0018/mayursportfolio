@@ -13,7 +13,7 @@ export default function ContactInfo() {
         <header className="text-slate-100">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
             Let&apos;s talk for <br />
-            <span className="text-blue-400">Something special</span>
+            <span className="text-red-400">Something special</span>
           </h2>
         </header>
         <p className="text-sm md:text-base leading-relaxed text-slate-400 max-w-md">
@@ -24,14 +24,14 @@ export default function ContactInfo() {
         <div className="pt-6 space-y-4">
           <motion.a 
             href="mailto:mayurnish18@gmail.com" 
-            className="text-base md:text-lg font-semibold text-slate-200 hover:text-blue-400 transition-colors block"
+            className="text-base md:text-lg font-semibold text-slate-200 hover:text-red-400 transition-colors block"
             whileHover={{ x: 5 }}
           >
             mayurnish18@gmail.com
           </motion.a>
           <motion.a 
             href="tel:9106481092" 
-            className="text-base md:text-lg font-semibold text-slate-200 hover:text-blue-400 transition-colors block"
+            className="text-base md:text-lg font-semibold text-slate-200 hover:text-red-400 transition-colors block"
             whileHover={{ x: 5 }}
           >
             +91 91064 81092

@@ -121,12 +121,12 @@ export default function AdminDashboard() {
       <aside className="w-72 bg-[#0F172A] border-r border-white/5 flex flex-col fixed h-screen z-50">
         <div className="p-8 border-b border-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <div className="w-10 h-10 rounded-xl bg-red-700 flex items-center justify-center shadow-lg shadow-red-700/20">
               <FaShieldAlt className="text-white text-xl" />
             </div>
             <div>
               <h1 className="text-lg font-black text-white tracking-tight">ADMIN PANEL</h1>
-              <p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Control Center</p>
+              <p className="text-[10px] text-red-400 font-bold uppercase tracking-widest">Control Center</p>
             </div>
           </div>
         </div>
@@ -136,9 +136,9 @@ export default function AdminDashboard() {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold transition-all group ${activeTab === item.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}
+              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl font-semibold transition-all group ${activeTab === item.id ? 'bg-red-700 text-white shadow-lg shadow-blue-600/20' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}
             >
-              <span className={`text-lg ${activeTab === item.id ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'}`}>
+              <span className={`text-lg ${activeTab === item.id ? 'text-white' : 'text-slate-500 group-hover:text-red-400'}`}>
                 {item.icon}
               </span>
               {item.label}
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
           {activeTab !== 'settings' && (
             <button 
               onClick={() => { setEditingItem(null); setIsModalOpen(true); }}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-xl shadow-blue-600/20"
+              className="flex items-center gap-2 bg-red-700 hover:bg-red-500 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-xl shadow-blue-600/20"
             >
               <FaPlus /> Add New Item
             </button>
@@ -193,43 +193,43 @@ export default function AdminDashboard() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Site Brand Name</label>
-                      <input type="text" value={configForm.siteName} onChange={e => setConfigForm({...configForm, siteName: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all" placeholder="e.g. MN." />
+                      <input type="text" value={configForm.siteName} onChange={e => setConfigForm({...configForm, siteName: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-red-500/50 transition-all" placeholder="e.g. MN." />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Contact Email</label>
-                      <input type="email" value={configForm.contactEmail} onChange={e => setConfigForm({...configForm, contactEmail: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all" placeholder="admin@example.com" />
+                      <input type="email" value={configForm.contactEmail} onChange={e => setConfigForm({...configForm, contactEmail: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-red-500/50 transition-all" placeholder="admin@example.com" />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Hero Section Title</label>
-                    <input type="text" value={configForm.heroTitle} onChange={e => setConfigForm({...configForm, heroTitle: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all" placeholder="Professional Title" />
+                    <input type="text" value={configForm.heroTitle} onChange={e => setConfigForm({...configForm, heroTitle: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-red-500/50 transition-all" placeholder="Professional Title" />
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Hero Section Subtitle / Intro</label>
-                    <textarea value={configForm.heroSubtitle} onChange={e => setConfigForm({...configForm, heroSubtitle: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all h-32 resize-none" placeholder="Detailed introduction..." />
+                    <textarea value={configForm.heroSubtitle} onChange={e => setConfigForm({...configForm, heroSubtitle: e.target.value})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-red-500/50 transition-all h-32 resize-none" placeholder="Detailed introduction..." />
                   </div>
 
                   <div className="pt-6 border-t border-white/5">
                     <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                      <FaGlobe className="text-blue-500" /> Social Connectivity
+                      <FaGlobe className="text-red-500" /> Social Connectivity
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-slate-500 uppercase">GitHub Profile URL</label>
-                        <input type="text" value={configForm.socials?.github || ""} onChange={e => setConfigForm({...configForm, socials: {...configForm.socials, github: e.target.value}})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-blue-500/50" />
+                        <input type="text" value={configForm.socials?.github || ""} onChange={e => setConfigForm({...configForm, socials: {...configForm.socials, github: e.target.value}})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-red-500/50" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-slate-500 uppercase">LinkedIn Profile URL</label>
-                        <input type="text" value={configForm.socials?.linkedin || ""} onChange={e => setConfigForm({...configForm, socials: {...configForm.socials, linkedin: e.target.value}})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-blue-500/50" />
+                        <input type="text" value={configForm.socials?.linkedin || ""} onChange={e => setConfigForm({...configForm, socials: {...configForm.socials, linkedin: e.target.value}})} className="w-full bg-[#1E293B] border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:ring-2 focus:ring-red-500/50" />
                       </div>
                     </div>
                   </div>
 
                   <div className="pt-6 border-t border-white/5">
                     <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                      <FaUser className="text-blue-500" /> Left Profile Card
+                      <FaUser className="text-red-500" /> Left Profile Card
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="space-y-2">
@@ -267,7 +267,7 @@ export default function AdminDashboard() {
 
                   <div className="pt-6 border-t border-white/5">
                     <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                      <FaUser className="text-blue-500" /> About Me Section
+                      <FaUser className="text-red-500" /> About Me Section
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
@@ -289,7 +289,7 @@ export default function AdminDashboard() {
                         <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
                           {configForm.profile?.avatar ? <img src={configForm.profile.avatar} className="w-full h-full object-cover" /> : <FaUser className="text-slate-600" />}
                         </div>
-                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'settings_avatar')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500" />
+                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'settings_avatar')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-700 file:text-white hover:file:bg-red-500" />
                       </div>
                     </div>
                     <div className="mt-6 space-y-2">
@@ -298,12 +298,12 @@ export default function AdminDashboard() {
                         <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
                           {configForm.aboutMe?.image ? <img src={configForm.aboutMe.image} className="w-full h-full object-cover" /> : <FaEdit className="text-slate-600" />}
                         </div>
-                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'settings_about')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500" />
+                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'settings_about')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-700 file:text-white hover:file:bg-red-500" />
                       </div>
                     </div>
                   </div>
 
-                  <button type="submit" className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-black px-10 py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/30 transform hover:-translate-y-1">
+                  <button type="submit" className="flex items-center gap-2 bg-red-700 hover:bg-red-500 text-white font-black px-10 py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/30 transform hover:-translate-y-1">
                     <FaSave /> Save Changes
                   </button>
                 </form>
@@ -332,10 +332,10 @@ export default function AdminDashboard() {
                     <tr key={item._id} className="hover:bg-white/[0.01] transition-all group">
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-2xl bg-[#1E293B] flex items-center justify-center border border-white/5 text-blue-400 font-bold">
+                          <div className="w-12 h-12 rounded-2xl bg-[#1E293B] flex items-center justify-center border border-white/5 text-red-400 font-bold">
                             {item.logo || item.icon ? "IMG" : (item.title || item.name || item.company).substring(0, 2).toUpperCase()}
                           </div>
-                          <span className="text-slate-100 font-bold group-hover:text-blue-400 transition-colors">{item.title || item.name || item.company}</span>
+                          <span className="text-slate-100 font-bold group-hover:text-red-400 transition-colors">{item.title || item.name || item.company}</span>
                         </div>
                       </td>
                       <td className="px-8 py-6">
@@ -357,7 +357,7 @@ export default function AdminDashboard() {
                           className="w-8 h-8 rounded-lg object-cover border border-white/10"
                         />
                       </div>
-                      <button onClick={() => handleEdit(item, activeTab.slice(0, -1))} className="p-3 text-blue-400 hover:bg-blue-500/10 rounded-xl transition-all"><FaEdit /></button>
+                      <button onClick={() => handleEdit(item, activeTab.slice(0, -1))} className="p-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all"><FaEdit /></button>
                       <button onClick={() => { if(window.confirm('Delete this item?')) deleteMutation.mutate({ type: activeTab === 'projects' ? 'projects' : activeTab === 'experience' ? 'experience' : activeTab === 'skills' ? 'skills' : 'content', id: item._id })}} className="p-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all"><FaTrash /></button>
                     </div>
                   </td>
@@ -384,7 +384,7 @@ export default function AdminDashboard() {
             >
               <div className="flex justify-between items-center mb-10">
                 <h3 className="text-2xl font-black text-white flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-500 flex items-center justify-center text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-red-700/20 text-red-500 flex items-center justify-center text-sm">
                     {editingItem ? <FaEdit /> : <FaPlus />}
                   </div>
                   {editingItem ? 'Modify' : 'Create'} {activeTab.slice(0, -1)}
@@ -396,13 +396,13 @@ export default function AdminDashboard() {
                 {activeTab === 'projects' && (
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                      <input type="text" placeholder="Number (e.g. 01)" value={projectForm.number} onChange={e => setProjectForm({...projectForm, number: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-blue-500/50" required />
+                      <input type="text" placeholder="Number (e.g. 01)" value={projectForm.number} onChange={e => setProjectForm({...projectForm, number: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-red-500/50" required />
                       <select value={projectForm.imagePosition} onChange={e => setProjectForm({...projectForm, imagePosition: e.target.value})} className="w-full bg-[#0f172a] border border-white/10 rounded-xl px-5 py-4 text-white outline-none">
                         <option value="left">Image Left</option>
                         <option value="right">Image Right</option>
                       </select>
                     </div>
-                    <input type="text" placeholder="Project Title" value={projectForm.title} onChange={e => setProjectForm({...projectForm, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-blue-500/50" required />
+                    <input type="text" placeholder="Project Title" value={projectForm.title} onChange={e => setProjectForm({...projectForm, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-red-500/50" required />
                     <textarea placeholder="Detailed Description" value={projectForm.description} onChange={e => setProjectForm({...projectForm, description: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none h-32 resize-none" required />
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-slate-500 uppercase">Project Image</label>
@@ -410,10 +410,10 @@ export default function AdminDashboard() {
                         <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
                           {projectForm.imageSrc ? <img src={projectForm.imageSrc} className="w-full h-full object-cover" /> : <FaProjectDiagram className="text-slate-600" />}
                         </div>
-                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'project')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500" />
+                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'project')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-700 file:text-white hover:file:bg-red-500" />
                       </div>
                     </div>
-                    <input type="text" placeholder="Live Deployment URL" value={projectForm.liveUrl} onChange={e => setProjectForm({...projectForm, liveUrl: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-blue-500/50" required />
+                    <input type="text" placeholder="Live Deployment URL" value={projectForm.liveUrl} onChange={e => setProjectForm({...projectForm, liveUrl: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-red-500/50" required />
                   </div>
                 )}
                 {activeTab === 'experience' && (
@@ -450,12 +450,12 @@ export default function AdminDashboard() {
                         <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
                           {contentForm.mediaUrl ? <img src={contentForm.mediaUrl} className="w-full h-full object-cover" /> : <FaGlobe className="text-slate-600" />}
                         </div>
-                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'project')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500" />
+                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'project')} className="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-700 file:text-white hover:file:bg-red-500" />
                       </div>
                     </div>
                   </div>
                 )}
-                <button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl transition-all mt-4 shadow-xl shadow-blue-600/30">
+                <button type="submit" className="w-full bg-red-700 hover:bg-red-500 text-white font-black py-5 rounded-2xl transition-all mt-4 shadow-xl shadow-blue-600/30">
                   {editingItem ? 'Update Live Content' : 'Publish to Website'}
                 </button>
               </form>

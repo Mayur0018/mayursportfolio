@@ -61,11 +61,11 @@ body {
   position: absolute;
   left: 0; bottom: -3px;
   width: 0; height: 2px;
-  background: #2D9CFF;
+  background: #E53E3E;
   border-radius: 99px;
   transition: width 0.25s ease;
 }
-.nav-link:hover { color: #2D9CFF; }
+.nav-link:hover { color: #E53E3E; }
 .nav-link:hover::after { width: 100%; }
 
 /* ─── Card shadow ────────────────────────────── */
@@ -80,7 +80,7 @@ body {
 
 /* ─── Gradient text ──────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #2D9CFF, #FF4F6D);
+  background: linear-gradient(135deg, #E53E3E, #C53030);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
