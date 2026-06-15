@@ -14,6 +14,11 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
+const configRoutes = require('./routes/configRoutes');
+const experienceRoutes = require('./routes/experienceRoutes');
+const skillRoutes = require('./routes/skillRoutes');
+const contentRoutes = require('./routes/contentRoutes');
+
 dotenv.config();
 connectDB();
 
@@ -50,6 +55,10 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
+app.use('/api/config', configRoutes);
+app.use('/api/experience', experienceRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('/api/content', contentRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);

@@ -53,20 +53,36 @@ const defaultProjects: Project[] = [
 
 const ProjectsSection = () => {
   const [projects, setProjects] = useState<Project[]>(defaultProjects);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        setIsLoading(true);
+        console.log("Fetching projects from backend...");
         const { data } = await api.get("/projects");
-        if (data && data.length > 0) {
+        console.log("Projects data received:", data);
+        
+        if (data && Array.isArray(data) && data.length > 0) {
+          // No more mapping needed, everything is in the DB
           setProjects(data);
         }
       } catch (error) {
-        console.error("Failed to fetch projects:", error);
+        console.error("Failed to fetch projects from backend:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProjects();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20 w-full">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <motion.section

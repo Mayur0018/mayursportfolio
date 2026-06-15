@@ -1,33 +1,52 @@
+import { useQuery } from "@tanstack/react-query";
+import api from "../../api/api";
 import ExperienceCard from "./ExperienceCardProps";
 
-const experienceData = [
+interface Experience {
+  _id?: string;
+  company: any;
+  role: string;
+  duration: string;
+  description: string;
+}
+
+const defaultExperiences = [
   {
     company: "codage" as const,
-    title: "Frontend Engineer at Codage Habitation",
-    period: "April 2024 - October 2024",
+    role: "Frontend Engineer at Codage Habitation",
+    duration: "April 2024 - October 2024",
     description:
       "Worked as a Frontend Engineer developing responsive and scalable web applications using React and Tailwind CSS. Collaborated with backend teams to integrate REST APIs and improve application performance.",
-    highlighted: false,
   },
   {
     company: "abbacus" as const,
-    title: "Web Designer at Abbacus Technologies",
-    period: "November 2025 - December 2025",
+    role: "Web Designer at Abbacus Technologies",
+    duration: "November 2025 - December 2025",
     description:
       "Designed modern and user-focused web interfaces. Created UI/UX layouts, responsive designs, and improved visual consistency across projects using design systems and frontend technologies.",
-    highlighted: false,
   },
   {
     company: "webscluds" as const,
-    title: "Full Stack Developer at Webs Cluds",
-    period: "December 2025 - Present",
+    role: "Full Stack Developer at Webs Cluds",
+    duration: "December 2025 - Present",
     description:
       "Currently working as a Full Stack Developer building scalable MERN stack applications. Responsible for frontend architecture, backend API development, authentication systems, and database management using MongoDB.",
-    highlighted: true,
   },
 ];
 
 export const ExperienceSection: React.FC = () => {
+  const { data: experiences, isLoading } = useQuery({
+    queryKey: ['experiences'],
+    queryFn: async () => {
+      const { data } = await api.get('/experience');
+      return data;
+    }
+  });
+
+  const displayData = experiences && experiences.length > 0 ? experiences : defaultExperiences;
+
+  if (isLoading) return null;
+
   return (
     <section
       id="experience"
@@ -42,14 +61,14 @@ export const ExperienceSection: React.FC = () => {
         </header>
 
         <div className="flex flex-col max-w-3xl mx-auto">
-          {experienceData.map((experience, index) => (
+          {displayData.map((exp: any, index: number) => (
             <ExperienceCard
-              key={`${experience.company}-${index}`}
-              company={experience.company}
-              title={experience.title}
-              period={experience.period}
-              description={experience.description}
-              highlighted={experience.highlighted}
+              key={exp._id || index}
+              company={exp.company}
+              title={exp.role}
+              period={exp.duration}
+              description={exp.description}
+              highlighted={index === 0}
             />
           ))}
         </div>

@@ -17,18 +17,20 @@ const getProjects = async (req, res) => {
 // @access  Private/Admin
 const createProject = async (req, res) => {
   try {
+    console.log('Create Project Request Body:', req.body);
     const { number, title, description, imageSrc, imageAlt, imagePosition, liveUrl } = req.body;
     const project = await Project.create({
-      number,
+      number: number || "00",
       title,
       description,
       imageSrc,
-      imageAlt,
-      imagePosition,
+      imageAlt: imageAlt || title,
+      imagePosition: imagePosition || 'left',
       liveUrl,
     });
     res.status(201).json(project);
   } catch (error) {
+    console.error('Create Project Error:', error);
     res.status(500).json({ message: error.message });
   }
 };

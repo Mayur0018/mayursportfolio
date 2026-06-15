@@ -7,7 +7,7 @@ import useAuthStore from "../store/authStore";
 import { io } from "socket.io-client";
 import { formatDistanceToNow } from "date-fns";
 
-const SOCKET_URL = "http://localhost:5000";
+const SOCKET_URL = "http://localhost:5001";
 
 export default function Messages() {
   const [selectedUser, setSelectedUser] = useState<any>(null);

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import api from "../api/api";
 import useAuthStore from "../store/authStore";
 import MySkills from "../components/skills/MySkills";
 import ExperienceSection from "../components/experience/ExperienceData";
@@ -21,6 +23,14 @@ export default function Portfolio() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const userInfo = useAuthStore((state) => state.userInfo);
   const logout = useAuthStore((state) => state.logout);
+
+  const { data: config } = useQuery({
+    queryKey: ['config'],
+    queryFn: async () => {
+      const { data } = await api.get('/config');
+      return data;
+    }
+  });
 
   const sections = [
     { id: "home", name: "About Me", icon: <FaUser /> },
@@ -70,7 +80,7 @@ export default function Portfolio() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="text-xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-md">
-            MN.
+            {config?.siteName || 'MN.'}
           </div>
           <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-blue-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
             <FaSearch className="text-slate-400 mr-2" />
@@ -160,30 +170,32 @@ export default function Portfolio() {
             <div className="px-6 pb-6 -mt-12 text-center relative">
               <div className="relative inline-block">
                 <div className="w-24 h-24 rounded-2xl bg-slate-900 border-4 border-[#07111F] mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.3)] relative z-10">
-                  <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">MN</div>
+                  <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">
+                    {config?.profile?.name?.substring(0, 2).toUpperCase() || 'MN'}
+                  </div>
                 </div>
                 <div className="absolute bottom-4 -right-2 w-5 h-5 bg-green-500 border-4 border-[#07111F] rounded-full z-20 shadow-[0_0_10px_rgba(34,197,94,0.8)]" title="Available for work"></div>
               </div>
               
-              <h2 className="font-bold text-lg text-white tracking-wide">Mayur Nishad</h2>
+              <h2 className="font-bold text-lg text-white tracking-wide">{config?.profile?.name || 'Mayur Nishad'}</h2>
               <div className="h-6 mt-1 mb-4">
-                <p className="text-sm text-blue-400 font-medium typing-effect inline-block">Frontend Developer & Designer</p>
+                <p className="text-sm text-blue-400 font-medium typing-effect inline-block">{config?.profile?.title || 'Frontend Developer & Designer'}</p>
               </div>
               
               <div className="flex justify-center gap-3 mb-6">
-                <a href="https://github.com/mayur0018" target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/5"><FaGithub size={18} /></a>
-                <a href="https://linkedin.com/in/mayur-nishad" target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-400 transition-colors border border-white/5"><FaLinkedin size={18} /></a>
-                <a href="#" target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-300 transition-colors border border-white/5"><FaTwitter size={18} /></a>
+                <a href={config?.socials?.github || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/5"><FaGithub size={18} /></a>
+                <a href={config?.socials?.linkedin || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-400 transition-colors border border-white/5"><FaLinkedin size={18} /></a>
+                <a href={config?.socials?.twitter || "#"} target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-300 transition-colors border border-white/5"><FaTwitter size={18} /></a>
               </div>
 
               <div className="border-t border-white/5 py-4 text-left text-sm space-y-4">
                 <div className="flex justify-between items-center group cursor-pointer">
-                  <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Profile views</span>
-                  <span className="text-blue-400 font-bold group-hover:text-blue-300">1,248</span>
+                  <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Followers</span>
+                  <span className="text-blue-400 font-bold group-hover:text-blue-300">{config?.profile?.stats?.followers || '1.2k'}</span>
                 </div>
                 <div className="flex justify-between items-center group cursor-pointer">
-                  <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Post impressions</span>
-                  <span className="text-purple-400 font-bold group-hover:text-purple-300">4,892</span>
+                  <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Following</span>
+                  <span className="text-purple-400 font-bold group-hover:text-purple-300">{config?.profile?.stats?.following || '450'}</span>
                 </div>
               </div>
               <button className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] text-sm font-bold text-white uppercase tracking-wider">

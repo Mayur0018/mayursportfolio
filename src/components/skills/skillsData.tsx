@@ -1,29 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import  SkillCard  from "./SkillCard";
 import { SiReact, SiNodedotjs, SiTailwindcss, SiMongodb, SiCss3, SiHtml5, SiJavascript, SiFigma, SiGit, SiNextdotjs } from "react-icons/si";
+import { useQuery } from "@tanstack/react-query";
+import api from "../../api/api";
  
  type SkillItem = {
-  title: string;
-  variant: 'light' | 'dark';
-  iconType: 'react';
-  iconComponent: React.ElementType;
+  _id?: string;
+  name: string;
+  category: string;
+  icon?: string;
 };
 
- const skillsData: SkillItem[] = [
-  { title: "React", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiReact },
-  { title: "Node.js", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiNodedotjs },
-  { title: "Tailwind CSS", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiTailwindcss },
-  { title: "CSS", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiCss3 },
-  { title: "MongoDB", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiMongodb },
-  { title: "HTML", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiHtml5 },
-  { title: "JavaScript", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiJavascript },
-  { title: "Figma", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiFigma },
-  { title: "Git", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiGit },
-  { title: "Next.js", variant: 'light' as const, iconType: 'react' as const, iconComponent: SiNextdotjs },
+ const defaultSkills = [
+  { name: "React", iconComponent: SiReact },
+  { name: "Node.js", iconComponent: SiNodedotjs },
+  { name: "Tailwind CSS", iconComponent: SiTailwindcss },
+  { name: "CSS", iconComponent: SiCss3 },
+  { name: "MongoDB", iconComponent: SiMongodb },
+  { name: "HTML", iconComponent: SiHtml5 },
+  { name: "JavaScript", iconComponent: SiJavascript },
+  { name: "Figma", iconComponent: SiFigma },
+  { name: "Git", iconComponent: SiGit },
+  { name: "Next.js", iconComponent: SiNextdotjs },
 ];
+
+const iconMap: Record<string, any> = {
+  "React": SiReact,
+  "Node.js": SiNodedotjs,
+  "Tailwind CSS": SiTailwindcss,
+  "CSS": SiCss3,
+  "MongoDB": SiMongodb,
+  "HTML": SiHtml5,
+  "JavaScript": SiJavascript,
+  "Figma": SiFigma,
+  "Git": SiGit,
+  "Next.js": SiNextdotjs,
+};
  
 export default function SkillsSection() {
+  const { data: skills, isLoading } = useQuery({
+    queryKey: ['skills'],
+    queryFn: async () => {
+      const { data } = await api.get('/skills');
+      return data;
+    }
+  });
+
+  const displayData = skills && skills.length > 0 ? skills : defaultSkills;
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -38,6 +63,8 @@ export default function SkillsSection() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
+
+  if (isLoading) return null;
 
   return (
     <motion.section
@@ -62,15 +89,15 @@ export default function SkillsSection() {
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
           variants={containerVariants}
         >
-          {skillsData.map((skill, index) => (
-            <motion.div key={`${skill.title}-${index}`} variants={itemVariants}>
+          {displayData.map((skill: any, index: number) => (
+            <motion.div key={skill._id || index} variants={itemVariants}>
               <SkillCard
-                title={skill.title}
+                title={skill.name}
                 icon={""}
                 variant="dark"
-                iconType={skill.iconType}
+                iconType="react"
                 iconText={""}
-                iconComponent={skill.iconComponent}
+                iconComponent={iconMap[skill.name] || SiReact}
               />
             </motion.div>
           ))}

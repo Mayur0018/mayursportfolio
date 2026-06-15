@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import SocialIcons from './SocialIcon';
+import { useQuery } from "@tanstack/react-query";
+import api from "../../api/api";
 
 interface PersonalIntroProps {
   name?: string;
@@ -8,12 +10,19 @@ interface PersonalIntroProps {
   description?: string;
 }
 
- const PersonalIntro: React.FC<PersonalIntroProps> = ({
-  name = "Mayur Nishad",
-  title = "Frontend Developer",
-  location = "India",
-  description = "I'm Evren Shah Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to specimen book."
-}) => {
+ const PersonalIntro: React.FC<PersonalIntroProps> = () => {
+  const { data: config } = useQuery({
+    queryKey: ['config'],
+    queryFn: async () => {
+      const { data } = await api.get('/config');
+      return data;
+    }
+  });
+
+  const name = "Mayur Nishad";
+  const title = config?.heroTitle || "Frontend Developer";
+  const location = "India";
+  const description = config?.heroSubtitle || "I'm Evren Shah Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to specimen book.";
   return (
     <motion.section
       className="flex-1 max-md:w-full"

@@ -1,425 +1,774 @@
-"use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import MySkills from "./components/skills/MySkills";
-import ExperienceSection from "./components/experience/ExperienceData";
-import AboutMe from "./components/about/AboutMe";
-import ProjectsSection from "./components/Projects/projectsData";
-import ContactForm from "./components/contact/ContactForm";
-import Footer from "./components/footer/Footer";
-import Testimonial from "./components/testimonial/Testimonial";
-import CursorGlow from "./components/background/CursorGlow";
-import GradientBlobs from "./components/background/GradientBlobs";
-import DotGrid from "./components/background/DotGrid";
-import FloatingParticles from "./components/background/FloatingParticles";
-import { FaHome, FaUser, FaBriefcase, FaCode, FaBell, FaSearch, FaEllipsisH, FaLinkedin, FaGithub, FaTwitter, FaCamera, FaVideo, FaCalendar, FaPen } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import RocketLoader from "./components/RocketLoader";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+  FaGlobe,
+  FaDownload,
+  FaArrowRight,
+  FaFolder,
+  FaCode,
+  FaUsers,
+  FaEye,
+  FaShieldAlt,
+  FaDesktop,
+  FaLightbulb,
+  FaTachometerAlt,
+  FaRocket,
+} from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import api from "./api/api";
+import heroImg from "./assets/heroimg.png";
+
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay },
+});
+
+const DEFAULT_TECHS = [
+  "React.js",
+  "Next.js",
+  "Tailwind CSS",
+  "TypeScript",
+  "Node.js",
+  "MongoDB",
+  "Framer Motion",
+];
+
+const DEFAULT_PROJECTS = [
+  {
+    title: "Portfolio Website",
+    description: "Personal portfolio built with Next.js and Tailwind CSS.",
+    tech: ["Next.js"],
+    imageSrc:
+      "https://images.unsplash.com/photo-1507238692062-54e7f3299718?w=700&q=80",
+  },
+  {
+    title: "Task Manager App",
+    description: "A task management app with modern UI and drag & drop.",
+    tech: ["React.js"],
+    imageSrc:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80",
+  },
+  {
+    title: "E-Commerce Store",
+    description: "Full featured ecommerce platform with cart and payments.",
+    tech: ["Next.js"],
+    imageSrc:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80",
+  },
+  {
+    title: "Blog Website",
+    description: "A modern blog website to share articles and thoughts.",
+    tech: ["Next.js"],
+    imageSrc:
+      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=700&q=80",
+  },
+  {
+    title: "Weather App",
+    description: "Real-time weather app with clean UI and API integration.",
+    tech: ["JavaScript"],
+    imageSrc:
+      "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=700&q=80",
+  },
+  {
+    title: "Expense Tracker",
+    description: "Track income and expenses with charts and insights.",
+    tech: ["React.js"],
+    imageSrc:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80",
+  },
+];
+
+const DEFAULT_EXPERIENCE = [
+  {
+    role: "Research",
+    description:
+      "I start by learning and researching based on ideas to find out the best solution for the users, goals, products, and requirements.",
+  },
+  {
+    role: "Planning",
+    description:
+      "Then I start to plan and structure the project process and budget based on the discovery phase before start the development.",
+  },
+  {
+    role: "Development",
+    description:
+      "After I completed all the processes, goals, and scopes, I started to do the development process such as creating basic codes and programming.",
+  },
+  {
+    role: "Testing & Launch",
+    description: "Finally testing the project and launch it for the users.",
+  },
+];
+
+const ARTICLES = [
+  {
+    title: "Why Next.js 14 is a Game Changer for Developers",
+    img: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80",
+    date: "May 15, 2026",
+  },
+  {
+    title: "State Management in React: Zustand vs Redux",
+    img: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=600&q=80",
+    date: "May 10, 2026",
+  },
+  {
+    title: "Tips to Write Better UI with Tailwind CSS",
+    img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&q=80",
+    date: "May 03, 2026",
+  },
+];
 
 export default function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const sections = [
-    { id: "home", name: "About Me", icon: <FaUser /> },
-    { id: "experience", name: "Experience", icon: <FaBriefcase /> },
-    { id: "skills", name: "Skills", icon: <FaCode /> },
-    { id: "project", name: "Projects", icon: <FaHome /> },
-    { id: "testimonial", name: "Testimonials", icon: <FaBell /> },
-    { id: "contact", name: "Contact", icon: <FaUser /> },
-  ];
+  const { data: config } = useQuery({
+    queryKey: ["config"],
+    queryFn: async () => (await api.get("/config")).data,
+  });
+  const { data: projectsData } = useQuery({
+    queryKey: ["projects"],
+    queryFn: async () => (await api.get("/projects")).data,
+  });
+  const { data: skillsData } = useQuery({
+    queryKey: ["skills"],
+    queryFn: async () => (await api.get("/skills")).data,
+  });
+  const { data: experienceData } = useQuery({
+    queryKey: ["experience"],
+    queryFn: async () => (await api.get("/experience")).data,
+  });
 
-  const filteredSections = sections.filter(section =>
-    section.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const projects =
+    projectsData && projectsData.length > 0 ? projectsData : DEFAULT_PROJECTS;
+  const experiences =
+    experienceData && experienceData.length > 0
+      ? experienceData
+      : DEFAULT_EXPERIENCE;
+  const techs =
+    skillsData && skillsData.length > 0
+      ? skillsData.map((s: any) => s.name)
+      : DEFAULT_TECHS;
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setShowSearchResults(e.target.value.length > 0);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setShowSearchResults(false);
-      setSearchQuery("");
-    }
-  };
   return (
-    <div className="min-h-screen bg-[#07111F] text-slate-200 font-sans selection:bg-blue-500/30 relative">
-      {/* Premium Background Effects */}
-      <DotGrid />
-      <GradientBlobs />
-      <FloatingParticles />
-      <CursorGlow />
-      
-      {/* Top Navigation Bar - Premium Social Style */}
-      <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 h-16 flex items-center justify-between px-4 md:px-8 shadow-md"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+    <>
+      {/* 3D Rocket Loader */}
+      {loading && <RocketLoader onDone={() => setLoading(false)} />}
+
+
+      <div
+        className="bg-[#F7F4EF] text-[#111] overflow-x-hidden"
+        style={{ fontFamily: "'Inter',sans-serif" }}
       >
-        <motion.div 
-          className="flex items-center gap-8"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+      {/* ── NAVBAR ── */}
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center justify-between px-6 md:px-16 py-6"
+      >
+        <span
+          style={{ fontFamily: "'Playfair Display',serif" }}
+          className="text-3xl md:text-4xl font-black tracking-tight"
         >
-          <div className="text-xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-md">
-            MN.
-          </div>
-          <div className="hidden md:flex items-center bg-slate-800/40 rounded-full px-4 py-2 border border-white/5 focus-within:border-blue-500/50 focus-within:bg-slate-800/60 transition-all duration-300 relative">
-            <FaSearch className="text-slate-400 mr-2" />
-            <input 
-              type="text" 
-              placeholder="Search developers, projects, skills..." 
-              className="bg-transparent border-none outline-none text-sm w-64 focus:w-80 transition-all duration-300 placeholder-slate-500"
-              value={searchQuery}
-              onChange={handleSearch}
-              onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
-            />
-            {showSearchResults && filteredSections.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute top-full left-0 right-0 mt-2 bg-slate-800/95 backdrop-blur-sm rounded-xl border border-white/10 shadow-xl overflow-hidden z-50"
-              >
-                {filteredSections.map((section, index) => (
-                  <motion.button
-                    key={section.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    onClick={() => scrollToSection(section.id)}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-left"
-                  >
-                    <span className="text-blue-400">{section.icon}</span>
-                    <span className="text-sm text-slate-200">{section.name}</span>
-                  </motion.button>
-                ))}
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
-        
-        <motion.div 
-          className="flex items-center gap-6"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          {config?.siteName || "MN."}
+        </span>
+        <div className="hidden md:flex items-center gap-10 text-sm font-semibold">
+          {["Home", "About", "Projects", "Articles", "Contact"].map((l) => (
+            <a
+              key={l}
+              href={`#${l.toLowerCase()}`}
+              className="nav-link hover:text-[#2D9CFF] transition-colors"
+            >
+              {l}
+            </a>
+          ))}
+        </div>
+        <a
+          href="#contact"
+          className="hidden sm:flex items-center bg-[#111] text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-[#2D9CFF] transition-colors duration-300"
         >
-          <div className="hidden md:flex gap-8 text-slate-400">
-            <a href="#home" className="hover:text-blue-400 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(59,130,246,0)] hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"><FaHome size={22} /></a>
-            <a href="#about" className="hover:text-blue-400 hover:scale-110 transition-all"><FaUser size={22} /></a>
-            <a href="#experience" className="hover:text-blue-400 hover:scale-110 transition-all"><FaBriefcase size={22} /></a>
-            <a href="#skills" className="hover:text-blue-400 hover:scale-110 transition-all"><FaCode size={22} /></a>
-          </div>
-          <div className="h-8 w-[1px] bg-white/10 mx-2 hidden md:block"></div>
-          <div className="flex items-center gap-4">
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors relative group">
-              <FaBell size={20} className="text-slate-400 group-hover:text-white" />
-              <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-blue-500 rounded-full border-2 border-[#0f172a] shadow-[0_0_8px_rgba(59,130,246,0.8)] animate-pulse"></span>
-            </button>
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 p-[2px] cursor-pointer hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all">
-              <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center text-xs font-bold">MN</div>
-            </div>
-          </div>
-        </motion.div>
+          Let's Connect
+        </a>
       </motion.nav>
 
-      <main className="pt-24 pb-12 px-4 max-w-7xl mx-auto flex gap-6 relative z-10">
-        {/* Left Sidebar - Premium Profile Card */}
-        <motion.aside 
-          className="hidden lg:block w-[280px] sticky top-24 h-fit space-y-6"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <motion.div 
-            className="glass-panel rounded-2xl overflow-hidden border border-white/5"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+      {/* ── HERO ── */}
+      <section
+        id="home"
+        className="py-12 md:py-20 px-6 md:px-16 max-w-7xl mx-auto"
+      >
+        <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
+          {/* Left – illustration */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex-1 w-full max-w-md"
           >
-            <div className="h-28 bg-gradient-to-r from-blue-600 to-purple-600 relative">
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay"></div>
-            </div>
-            <div className="px-6 pb-6 -mt-12 text-center relative">
-              <div className="relative inline-block">
-                <div className="w-24 h-24 rounded-2xl bg-slate-900 border-4 border-[#07111F] mx-auto mb-3 flex items-center justify-center overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.3)] relative z-10">
-                  <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-purple-400">MN</div>
-                </div>
-                <div className="absolute bottom-4 -right-2 w-5 h-5 bg-green-500 border-4 border-[#07111F] rounded-full z-20 shadow-[0_0_10px_rgba(34,197,94,0.8)]" title="Available for work"></div>
-              </div>
-              
-              <h2 className="font-bold text-lg text-white tracking-wide">Mayur Nishad</h2>
-              <div className="h-6 mt-1 mb-4">
-                <p className="text-sm text-blue-400 font-medium typing-effect inline-block">Frontend Developer & Designer</p>
-              </div>
-              
-              <div className="flex justify-center gap-3 mb-6">
-                <a href="https://github.com/mayur0018" target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors border border-white/5"><FaGithub size={18} /></a>
-                <a href="https://linkedin.com/in/mayur-nishad" target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-400 transition-colors border border-white/5"><FaLinkedin size={18} /></a>
-                <a href="#" target="_blank" rel="noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-300 transition-colors border border-white/5"><FaTwitter size={18} /></a>
-              </div>
-
-              <div className="border-t border-white/5 py-4 text-left text-sm space-y-4">
-                <div className="flex justify-between items-center group cursor-pointer">
-                  <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Profile views</span>
-                  <span className="text-blue-400 font-bold group-hover:text-blue-300">1,248</span>
-                </div>
-                <div className="flex justify-between items-center group cursor-pointer">
-                  <span className="text-slate-400 group-hover:text-slate-200 transition-colors">Post impressions</span>
-                  <span className="text-purple-400 font-bold group-hover:text-purple-300">4,892</span>
-                </div>
-              </div>
-              <button className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] text-sm font-bold text-white uppercase tracking-wider">
-                Download Resume
-              </button>
+            <div className="bg-[#FFC83D] rounded-[32px] overflow-hidden aspect-square flex items-end justify-center w-full relative">
+              <img
+                src={heroImg}
+                alt="Developer"
+                className="w-[90%] h-[95%] object-contain object-bottom"
+              />
             </div>
           </motion.div>
-          
-          <motion.div 
-            className="glass-panel rounded-2xl p-5 border border-white/5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <FaCode className="text-blue-400" /> Tech Stack
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Node.js', 'MongoDB', 'Framer Motion'].map((skill, i) => (
-                <motion.span 
-                  key={skill} 
-                  className="px-3 py-1.5 rounded-lg bg-slate-800/50 text-xs font-medium text-slate-300 border border-white/5 hover:border-blue-500/50 hover:text-blue-400 hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all cursor-default"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.5 + (i * 0.05) }}
-                  whileHover={{ scale: 1.1 }}
+
+          {/* Right – text */}
+          <div className="flex-1 space-y-6 md:space-y-8">
+            <motion.h1
+              {...fade(0.1)}
+              style={{ fontFamily: "'Playfair Display',serif" }}
+              className="text-3xl md:text-4xl lg:text-5xl font-black leading-[1.2] uppercase"
+            >
+              Frontend
+              <br />
+              Developer &<br />
+              Designer
+            </motion.h1>
+            <motion.p
+              {...fade(0.2)}
+              className="text-gray-700 text-base max-w-md leading-relaxed"
+            >
+              {config?.aboutMe?.text ||
+                "I build modern, responsive and user-friendly web applications with clean code and great attention to detail."}
+            </motion.p>
+            <motion.div
+              {...fade(0.3)}
+              className="flex flex-wrap items-center gap-4"
+            >
+              <a
+                href="#"
+                className="flex items-center gap-2 bg-[#2D9CFF] text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-blue-600 transition-colors"
+              >
+                Download Resume <FaDownload className="text-xs" />
+              </a>
+              <a
+                href="#projects"
+                className="flex items-center gap-2 border border-gray-300 px-6 py-3 rounded-full text-sm font-bold hover:border-[#111] transition-colors group"
+              >
+                <span className="w-6 h-6 rounded-full border border-gray-400 flex items-center justify-center group-hover:border-[#111] transition-colors">
+                  <FaArrowRight className="text-[10px]" />
+                </span>
+                View My Work
+              </a>
+            </motion.div>
+            <motion.div {...fade(0.4)} className="flex items-center gap-6 pt-2">
+              {[
+                {
+                  icon: <FaGithub />,
+                  href:
+                    config?.socials?.github || "https://github.com/mayur0018",
+                },
+                {
+                  icon: <FaLinkedin />,
+                  href:
+                    config?.socials?.linkedin ||
+                    "https://linkedin.com/in/mayur-nishad",
+                },
+                { icon: <FaTwitter />, href: config?.socials?.twitter || "#" },
+                { icon: <FaGlobe />, href: "#" },
+              ].map((s, i) => (
+                <a
+                  key={i}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xl text-gray-800 hover:text-[#2D9CFF] transition-colors"
                 >
-                  {skill}
-                </motion.span>
+                  {s.icon}
+                </a>
               ))}
-            </div>
-          </motion.div>
-        </motion.aside>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-        {/* Main Feed */}
-        <motion.div 
-          className="flex-1 space-y-8 max-w-[680px]"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+      {/* ── DOUBLE MARQUEE RIBBON ── */}
+      <div
+        className="relative mt-8 mb-20 overflow-hidden"
+        style={{ margin: "2rem -2rem" }}
+      >
+        <div className="relative py-12">
+          {/* Black ribbon (behind) */}
+          <div
+            className="absolute inset-0 top-1/2 -translate-y-1/2 bg-[#111] py-4 w-full"
+            style={{ transform: "rotate(2deg) scale(1.1)" }}
+          >
+            <div className="marquee-track-reverse">
+              {[...techs, ...techs, ...techs, ...techs, ...techs].map(
+                (t, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-6 px-6 opacity-40"
+                  >
+                    <div className="w-2 h-2 bg-gray-500 rounded-full flex-shrink-0" />
+                    <span className="text-gray-400 font-bold text-lg md:text-xl tracking-wider">
+                      {t}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+          {/* Pink ribbon (front) */}
+          <div
+            className="relative bg-[#FF4F6D] py-4 w-full"
+            style={{ transform: "rotate(-2deg) scale(1.1)" }}
+          >
+            <div className="marquee-track">
+              {[...techs, ...techs, ...techs, ...techs, ...techs].map(
+                (t, i) => (
+                  <div key={i} className="flex items-center gap-6 px-6">
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0" />
+                    <span className="text-white font-bold text-lg md:text-xl tracking-wider">
+                      {t}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── ABOUT ME ── */}
+      <section id="about" className="py-16 px-6 md:px-16 max-w-5xl mx-auto">
+        <motion.h2
+          {...fade()}
+          style={{ fontFamily: "'Playfair Display',serif" }}
+          className="text-3xl md:text-4xl font-black mb-6 uppercase"
         >
-          {/* Create Post Style Intro */}
-          <motion.div 
-            className="glass-panel rounded-2xl p-5 border border-white/5 shadow-lg"
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex gap-4 mb-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-[2px] shrink-0">
-                <div className="w-full h-full rounded-full bg-[#07111F] flex items-center justify-center text-xs font-bold text-slate-200">MN</div>
-              </div>
-              <div className="flex-1 bg-slate-800/30 rounded-2xl px-5 py-3 text-slate-400 text-sm cursor-text border border-white/5 hover:bg-slate-800/50 hover:border-blue-500/30 transition-all group">
-                <span className="group-hover:text-slate-300 transition-colors">Share your latest project or update...</span>
-              </div>
+          About Me
+        </motion.h2>
+        <motion.p
+          {...fade(0.1)}
+          className="text-gray-700 max-w-2xl text-sm md:text-base leading-relaxed mb-10"
+        >
+          I am a passionate Frontend Developer who loves building beautiful and
+          functional web experiences. I enjoy turning ideas into reality using
+          modern technologies. Dedicated to writing clean code and delivering
+          high-quality solutions that solve real-world problems.
+        </motion.p>
+
+        {/* Skill highlights */}
+        <motion.div
+          {...fade(0.2)}
+          className="flex flex-wrap gap-4 md:gap-8 mb-12"
+        >
+          {[
+            {
+              icon: <FaShieldAlt className="text-[#FF4F6D] text-lg" />,
+              t: "Clean Code",
+            },
+            {
+              icon: <FaDesktop className="text-[#FF4F6D] text-lg" />,
+              t: "Responsive Design",
+            },
+            {
+              icon: <FaLightbulb className="text-[#FF4F6D] text-lg" />,
+              t: "Problem Solver",
+            },
+            {
+              icon: <FaTachometerAlt className="text-[#FF4F6D] text-lg" />,
+              t: "Performance Focused",
+            },
+          ].map((h) => (
+            <div key={h.t} className="flex items-center gap-3">
+              {h.icon} <span className="font-bold text-sm">{h.t}</span>
             </div>
-            <div className="flex justify-between px-2 pt-3 border-t border-white/5">
-              <button className="flex items-center gap-2 text-slate-400 hover:text-blue-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-blue-500/10 transition-all">
-                <FaCamera className="text-blue-400" size={18} /> <span className="hidden sm:inline">Media</span>
-              </button>
-              <button className="flex items-center gap-2 text-slate-400 hover:text-green-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-green-500/10 transition-all">
-                <FaVideo className="text-green-400" size={18} /> <span className="hidden sm:inline">Video</span>
-              </button>
-              <button className="flex items-center gap-2 text-slate-400 hover:text-orange-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-orange-500/10 transition-all">
-                <FaCalendar className="text-orange-400" size={18} /> <span className="hidden sm:inline">Event</span>
-              </button>
-              <button className="flex items-center gap-2 text-slate-400 hover:text-purple-400 text-sm font-medium py-2 px-4 rounded-xl hover:bg-purple-500/10 transition-all">
-                <FaPen className="text-purple-400" size={18} /> <span className="hidden sm:inline">Article</span>
-              </button>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            id="home"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <AboutMe />
-          </motion.div>
-
-          <motion.div 
-            id="experience"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <ExperienceSection />
-          </motion.div>
-
-          <motion.div 
-            id="skills"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <MySkills />
-          </motion.div>
-
-          <motion.div 
-            id="project"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <ProjectsSection />
-          </motion.div>
-
-          <motion.div 
-            id="testimonial"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Testimonial />
-          </motion.div>
-
-          <motion.div 
-            id="contact"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <ContactForm />
-          </motion.div>
+          ))}
         </motion.div>
 
-        {/* Right Sidebar - Premium Widgets */}
-        <motion.aside 
-          className="hidden xl:block w-[320px] sticky top-24 h-fit space-y-6"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+        {/* Stats Grid */}
+        <motion.div
+          {...fade(0.3)}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4"
         >
-          <motion.div 
-            className="glass-panel rounded-2xl p-5 border border-white/5"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex items-center justify-between mb-5">
-              <h3 className="font-bold text-slate-200">Trending Topics</h3>
-              <FaEllipsisH className="text-slate-500 hover:text-slate-300 cursor-pointer transition-colors" />
+          {[
+            {
+              v: projects.length + "+",
+              l: "Projects Completed",
+              icon: <FaFolder className="text-[#2D9CFF]" />,
+              bg: "bg-blue-50",
+            },
+            {
+              v: "25+",
+              l: "Repositories",
+              icon: <FaCode className="text-green-500" />,
+              bg: "bg-green-50",
+            },
+            {
+              v: config?.profile?.stats?.followers || "1.2K+",
+              l: "Followers",
+              icon: <FaUsers className="text-orange-500" />,
+              bg: "bg-orange-50",
+            },
+            {
+              v: "4.8K+",
+              l: "Profile Views",
+              icon: <FaEye className="text-purple-500" />,
+              bg: "bg-purple-50",
+            },
+          ].map((s) => (
+            <div
+              key={s.l}
+              className="bg-white rounded-2xl p-6 border border-gray-100 flex items-center gap-4 card-lift"
+            >
+              <div
+                className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${s.bg}`}
+              >
+                {s.icon}
+              </div>
+              <div>
+                <div className="font-black text-xl">{s.v}</div>
+                <div className="text-[10px] md:text-xs text-gray-500 font-semibold uppercase">
+                  {s.l}
+                </div>
+              </div>
             </div>
-            <div className="space-y-4">
-              {[
-                { label: 'React 19 Server Components', posts: '12.4k posts', trend: 'up' },
-                { label: 'Tailwind CSS V4', posts: '8.2k posts', trend: 'up' },
-                { label: 'AI Code Assistants', posts: '24.1k posts', trend: 'hot' },
-                { label: 'Framer Motion Tricks', posts: '3.5k posts', trend: 'stable' },
-              ].map((trend, i) => (
-                <motion.div 
-                  key={i} 
-                  className="group cursor-pointer"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.7 + (i * 0.1) }}
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ── WORKING PROCESS ── */}
+      <section className="bg-[#111] text-white py-24 px-6 md:px-16 mt-16">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2
+            {...fade()}
+            style={{ fontFamily: "'Playfair Display',serif" }}
+            className="text-3xl md:text-4xl font-black uppercase text-center mb-16"
+          >
+            My Working Process
+          </motion.h2>
+
+          <div className="relative">
+            <div className="hidden md:block absolute left-[30%] top-2 bottom-2 w-px bg-gray-800" />
+            <div className="space-y-12 md:space-y-16">
+              {experiences.map((s: any, i: number) => (
+                <motion.div
+                  key={i}
+                  {...fade(i * 0.1)}
+                  className="flex flex-col md:flex-row gap-6 md:gap-0 relative group"
                 >
-                  <div className="flex justify-between items-start">
-                    <p className="text-xs text-slate-500 mb-1">Tech • Trending</p>
-                    {trend.trend === 'hot' && <span className="text-[10px] text-red-400 bg-red-400/10 px-2 py-0.5 rounded-full border border-red-400/20">🔥 Hot</span>}
+                  {/* Left Column - Number & Title */}
+                  <div className="md:w-[30%] flex items-start md:pr-10 relative">
+                    <span className="text-xs font-bold text-[#2D9CFF] mr-3 mt-1">
+                      0{i + 1}.
+                    </span>
+                    <h3
+                      className={`text-xl md:text-2xl font-bold ${i === 0 ? "text-[#2D9CFF]" : "text-white"} group-hover:text-[#2D9CFF] transition-colors`}
+                    >
+                      {s.role || s.title || `Step ${i + 1}`}
+                    </h3>
                   </div>
-                  <h4 className="font-bold text-slate-200 group-hover:text-blue-400 transition-colors">#{trend.label}</h4>
-                  <p className="text-xs text-slate-400 mt-1">{trend.posts}</p>
+
+                  {/* Center Dot */}
+                  <div className="hidden md:flex absolute left-[30%] -ml-[4px] top-2 w-2 h-2 rounded-full bg-white group-hover:bg-[#2D9CFF] group-hover:scale-150 transition-all z-10" />
+
+                  {/* Right Column - Description */}
+                  <div className="md:w-[70%] md:pl-10">
+                    <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                      {s.description}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
-            <button className="w-full mt-5 py-2 text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors text-sm font-medium">Show more</button>
-          </motion.div>
+          </div>
+        </div>
+      </section>
 
-          <motion.div 
-            className="glass-panel rounded-2xl p-5 border border-white/5 relative overflow-hidden group"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+      {/* ── PROJECTS ── */}
+      <section id="projects" className="py-24 px-6 md:px-16 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+          <motion.h2
+            {...fade()}
+            style={{ fontFamily: "'Playfair Display',serif" }}
+            className="text-3xl md:text-4xl font-black uppercase leading-[1.2] max-w-xl"
           >
-            <div className="absolute -right-10 -top-10 w-32 h-32 bg-purple-500/10 blur-[30px] rounded-full group-hover:bg-purple-500/20 transition-all"></div>
-            <h3 className="font-bold text-slate-200 mb-4 relative z-10 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></span>
-              Recent Activity
-            </h3>
-            <div className="space-y-4 relative z-10">
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
-                  <FaGithub size={14} />
-                </div>
+            Take A Look At My <br className="hidden md:block" /> Recent Project
+          </motion.h2>
+          <motion.a
+            {...fade(0.1)}
+            href="#"
+            className="flex items-center gap-2 bg-[#2D9CFF] text-white px-8 py-3.5 rounded-full text-sm font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/20"
+          >
+            Browse All <FaArrowRight />
+          </motion.a>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+          {projects.map((p: any, i: number) => (
+            <motion.div
+              key={p._id || i}
+              {...fade(i * 0.05)}
+              className="bg-transparent rounded-[24px] p-6 md:p-8 border border-black/10 flex flex-col sm:flex-row items-center gap-6 md:gap-8 hover:border-black/20 hover:bg-black/[0.02] transition-all cursor-pointer group"
+              onClick={() => window.open(p.liveUrl || "#", "_blank")}
+            >
+              {/* Text Side */}
+              <div className="flex-1 w-full sm:w-1/2 flex flex-col justify-center">
+                <h3 className="text-xl md:text-2xl font-black mb-4 text-[#111]">
+                  {p.title}
+                </h3>
+                <p className="text-gray-500 text-sm mb-8 leading-relaxed line-clamp-3">
+                  {p.description ||
+                    "I have done this awesome website development project in the recent time with passion.."}
+                </p>
+                <span className="inline-flex items-center gap-2 text-sm font-black text-[#111] group-hover:text-[#2D9CFF] transition-colors">
+                  Case Study <FaArrowRight className="text-xs" />
+                </span>
+              </div>
+              {/* Image Side */}
+              <div className="w-full sm:w-1/2 flex items-center justify-center overflow-hidden">
+                <img
+                  src={
+                    p.imageSrc ||
+                    p.img ||
+                    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80"
+                  }
+                  alt={p.title}
+                  className="w-full h-auto rounded-xl shadow-sm group-hover:scale-[1.03] transition-transform duration-500 object-cover"
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── STATISTICS RIBBON ── */}
+      <section className="bg-[#FF4F6D] py-12 px-6 border-y-2 border-[#111]">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-around items-center gap-8 text-center text-white">
+          {[
+            {
+              v: config?.profile?.stats?.followers || "1.2K+",
+              l: "Happy Followers",
+            },
+            { v: "100%", l: "Client Satisfaction" },
+            { v: projects.length + "+", l: "Projects Completed" },
+          ].map((s, i) => (
+            <motion.div
+              key={s.l}
+              {...fade(i * 0.1)}
+              className="flex-1 border-b md:border-b-0 md:border-r border-white/20 last:border-0 pb-6 md:pb-0"
+            >
+              <div className="text-4xl md:text-5xl font-black mb-1">{s.v}</div>
+              <div className="text-white font-bold text-xs md:text-sm">
+                {s.l}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="py-24 px-6 md:px-16 max-w-5xl mx-auto">
+        <motion.h2
+          {...fade()}
+          style={{ fontFamily: "'Playfair Display',serif" }}
+          className="text-2xl md:text-3xl font-black uppercase mb-12"
+        >
+          What My Clients Are Saying
+        </motion.h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            {
+              quote:
+                "Mayur is a fantastic developer! He delivered exactly what we needed with great quality and on time. Highly recommended.",
+              name: "John Doe",
+              role: "CEO, TechCorp",
+              img: "https://ui-avatars.com/api/?name=John+Doe&background=random",
+            },
+            {
+              quote:
+                "Amazing work and attention to detail. The project was smooth, responsive and exceeded our expectations.",
+              name: "Sarah Johnson",
+              role: "Product Manager",
+              img: "https://ui-avatars.com/api/?name=Sarah+Johnson&background=random",
+            },
+          ].map((t, i) => (
+            <motion.div
+              key={i}
+              {...fade(i * 0.1)}
+              className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 card-lift"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <img
+                  src={t.img}
+                  alt={t.name}
+                  className="w-12 h-12 rounded-full"
+                />
                 <div>
-                  <p className="text-sm text-slate-300">Pushed <span className="font-bold text-white">4 commits</span> to <span className="text-blue-400 cursor-pointer hover:underline">mayur-portfolio</span></p>
-                  <p className="text-xs text-slate-500 mt-1">2 hours ago</p>
+                  <div className="font-black text-sm">{t.name}</div>
+                  <div className="text-xs text-gray-500">{t.role}</div>
                 </div>
               </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
-                  <FaCode size={14} />
-                </div>
-                <div>
-                  <p className="text-sm text-slate-300">Completed <span className="font-bold text-white">Advanced React Patterns</span></p>
-                  <p className="text-xs text-slate-500 mt-1">Yesterday</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                "{t.quote}"
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-          <motion.div 
-            className="glass-panel rounded-2xl p-5 border border-white/5"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+      {/* ── BLOG ── */}
+      <section id="articles" className="py-16 px-6 md:px-16 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-12">
+          <motion.h2
+            {...fade()}
+            style={{ fontFamily: "'Playfair Display',serif" }}
+            className="text-2xl md:text-3xl font-black uppercase leading-[1.2] max-w-xs md:max-w-none"
           >
-            <h3 className="font-bold text-slate-200 mb-4">Suggested Connections</h3>
-            <div className="space-y-4">
-              {[
-                { name: 'Github', handle: '@mayur0018', icon: <FaGithub />, link: 'https://github.com/mayur0018', color: 'from-slate-700 to-slate-900' },
-                { name: 'LinkedIn', handle: '/in/mayur-nishad', icon: <FaLinkedin />, link: 'https://linkedin.com/in/mayur-nishad', color: 'from-blue-600 to-blue-800' },
-                { name: 'Twitter', handle: '@mayur_codes', icon: <FaTwitter />, link: 'https://twitter.com', color: 'from-sky-400 to-sky-600' },
-              ].map((conn, i) => (
-                <motion.div 
-                  key={conn.name} 
-                  className="flex items-center justify-between group"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.8 + (i * 0.1) }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${conn.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                      <span className="text-white">{conn.icon}</span>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">{conn.name}</h4>
-                      <p className="text-xs text-slate-400">{conn.handle}</p>
-                    </div>
-                  </div>
-                  <a 
-                    href={conn.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold px-4 py-1.5 rounded-full border border-slate-600 text-slate-300 hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/10 transition-all"
+            Latest News From
+            <br className="md:hidden" /> The IT Industry
+          </motion.h2>
+          <motion.a
+            {...fade(0.1)}
+            href="#"
+            className="hidden sm:flex items-center gap-2 bg-[#2D9CFF] text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-600 transition-colors"
+          >
+            Browse All <FaArrowRight />
+          </motion.a>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {ARTICLES.map((a, i) => (
+            <motion.div
+              key={i}
+              {...fade(i * 0.1)}
+              className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-gray-100 card-lift"
+            >
+              <div className="aspect-[16/9] overflow-hidden bg-gray-100">
+                <img
+                  src={a.img}
+                  alt={a.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-6">
+                <div className="text-[10px] text-gray-500 font-semibold mb-3">
+                  {a.date} &bull; 5 min read
+                </div>
+                <h3 className="text-base font-black mb-4 leading-snug group-hover:text-[#2D9CFF] transition-colors">
+                  {a.title}
+                </h3>
+                <span className="text-xs font-bold text-gray-800 flex items-center gap-2 group-hover:text-[#2D9CFF] transition-colors">
+                  Read More <FaArrowRight className="text-[10px]" />
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── BOTTOM DOUBLE MARQUEE & FOOTER ── */}
+      <div
+        className="relative mt-20 overflow-hidden"
+        style={{ margin: "0 -2rem" }}
+      >
+        <div className="relative py-12">
+          {/* Black ribbon (behind) */}
+          <div
+            className="absolute inset-0 top-1/2 -translate-y-1/2 bg-[#111] py-4 w-full"
+            style={{ transform: "rotate(2deg) scale(1.1)" }}
+          >
+            <div className="marquee-track-reverse">
+              {[...techs, ...techs, ...techs, ...techs, ...techs].map(
+                (t, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-6 px-6 opacity-40"
                   >
-                    Connect
-                  </a>
-                </motion.div>
-              ))}
+                    <div className="w-2 h-2 bg-gray-500 rounded-full flex-shrink-0" />
+                    <span className="text-gray-400 font-bold text-lg md:text-xl tracking-wider">
+                      {t}
+                    </span>
+                  </div>
+                ),
+              )}
             </div>
-          </motion.div>
+          </div>
+          {/* Pink ribbon (front) */}
+          <div
+            className="relative bg-[#FF4F6D] py-4 w-full"
+            style={{ transform: "rotate(-2deg) scale(1.1)" }}
+          >
+            <div className="marquee-track">
+              {[...techs, ...techs, ...techs, ...techs, ...techs].map(
+                (t, i) => (
+                  <div key={i} className="flex items-center gap-6 px-6">
+                    <div className="w-2 h-2 bg-white rounded-full flex-shrink-0" />
+                    <span className="text-white font-bold text-lg md:text-xl tracking-wider">
+                      {t}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <Footer />
-        </motion.aside>
-      </main>
+      <section id="contact" className="pt-24 pb-12 px-6 md:px-16 text-center">
+        <div className="max-w-2xl mx-auto">
+          <motion.h2
+            {...fade()}
+            style={{ fontFamily: "'Playfair Display',serif" }}
+            className="text-2xl md:text-3xl font-black uppercase mb-4"
+          >
+            Interested In Working Together?
+          </motion.h2>
+          <motion.p {...fade(0.1)} className="text-gray-500 text-sm mb-2">
+            Let's build something amazing!
+          </motion.p>
+          <motion.a
+            {...fade(0.2)}
+            href="mailto:mayurnishad.dev@gmail.com"
+            className="inline-block text-lg md:text-xl font-bold text-[#FF4F6D] hover:text-[#111] transition-colors mb-8"
+          >
+            mayurnishad.dev@gmail.com
+          </motion.a>
+          <motion.div
+            {...fade(0.3)}
+            className="flex justify-center gap-4 mb-12"
+          >
+            {[
+              {
+                icon: <FaGithub />,
+                href: config?.socials?.github || "https://github.com/mayur0018",
+              },
+              {
+                icon: <FaLinkedin />,
+                href:
+                  config?.socials?.linkedin ||
+                  "https://linkedin.com/in/mayur-nishad",
+              },
+              { icon: <FaTwitter />, href: config?.socials?.twitter || "#" },
+              { icon: <FaGlobe />, href: "#" },
+            ].map((s, i) => (
+              <a
+                key={i}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#111] hover:text-white hover:border-[#111] transition-all"
+              >
+                {s.icon}
+              </a>
+            ))}
+          </motion.div>
+          <div className="text-gray-400 text-xs font-medium">
+            © 2026 {config?.siteName || "Mayur Nishad"}. All Rights Reserved.
+          </div>
+        </div>
+      </section>
     </div>
+    </>
   );
 }
