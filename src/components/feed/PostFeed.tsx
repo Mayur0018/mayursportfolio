@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Heart, MessageSquare, Share2, MoreHorizontal } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -20,7 +20,7 @@ const PostFeed = () => {
   const likeMutation = useMutation({
     mutationFn: (postId) => api.put(`/posts/${postId}/like`),
     onSuccess: () => {
-      queryClient.invalidateQueries(['posts']);
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
   });
 
@@ -45,7 +45,7 @@ const PostFeed = () => {
 
   return (
     <div className="space-y-6 pb-10">
-      {posts?.map((post) => (
+      {posts?.map((post: any) => (
         <article key={post._id} className="glass p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-all group">
           <div className="flex justify-between items-start mb-4">
             <div className="flex gap-4">

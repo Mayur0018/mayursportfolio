@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaUser, FaSearch, FaEllipsisV, FaCircle } from "react-icons/fa";
+import { FaPaperPlane, FaSearch, FaEllipsisV, FaCircle } from "react-icons/fa";
 import api from "../api/api";
 import useAuthStore from "../store/authStore";
 import { io } from "socket.io-client";
@@ -12,7 +11,7 @@ const SOCKET_URL = "http://localhost:5001";
 export default function Messages() {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [message, setMessage] = useState("");
-  const [socket, setSocket] = useState<any>(null);
+
   const userInfo = useAuthStore((state) => state.userInfo);
   const queryClient = useQueryClient();
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -46,7 +45,6 @@ export default function Messages() {
   useEffect(() => {
     if (userInfo) {
       const newSocket = io(SOCKET_URL);
-      setSocket(newSocket);
       newSocket.emit('join', userInfo._id);
 
       newSocket.on('new_message', (msg) => {

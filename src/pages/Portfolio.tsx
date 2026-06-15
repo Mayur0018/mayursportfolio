@@ -6,7 +6,7 @@ import AboutMe from "../components/about/AboutMe";
 import ProjectsSection from "../components/Projects/projectsData";
 import ContactForm from "../components/contact/ContactForm";
 import Testimonial from "../components/testimonial/Testimonial";
-import { FaHome, FaUser, FaBriefcase, FaCode, FaBell, FaSearch, FaEllipsisH, FaLinkedin, FaGithub, FaTwitter, FaCamera, FaVideo, FaCalendar, FaPen, FaCommentAlt } from "react-icons/fa";
+import { FaHome, FaBell, FaSearch, FaLinkedin, FaGithub, FaPen, FaCommentAlt } from "react-icons/fa";
 import useAuthStore from "../store/authStore";
 import { Link } from "react-router-dom";
 import CreatePost from "../components/feed/CreatePost";
@@ -53,26 +53,8 @@ export default function Portfolio() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const sections = [
-    { id: "home", name: "About Me", icon: <FaUser /> },
-    { id: "experience", name: "Experience", icon: <FaBriefcase /> },
-    { id: "skills", name: "Skills", icon: <FaCode /> },
-    { id: "project", name: "Projects", icon: <FaHome /> },
-    { id: "testimonial", name: "Testimonials", icon: <FaBell /> },
-    { id: "contact", name: "Contact", icon: <FaUser /> },
-  ];
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setShowSearchResults(false);
-      setSearchQuery("");
-    }
   };
 
   return (

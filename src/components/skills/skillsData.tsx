@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
+
 import { motion } from "framer-motion";
 import  SkillCard  from "./SkillCard";
 import { SiReact, SiNodedotjs, SiTailwindcss, SiMongodb, SiCss3, SiHtml5, SiJavascript, SiFigma, SiGit, SiNextdotjs } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api/api";
- 
- type SkillItem = {
-  _id?: string;
-  name: string;
-  category: string;
-  icon?: string;
-};
 
  const defaultSkills = [
   { name: "React", iconComponent: SiReact },

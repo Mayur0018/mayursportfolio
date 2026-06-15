@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import RocketLoader from "./components/RocketLoader";
 import {
   FaGithub,
@@ -16,7 +16,6 @@ import {
   FaDesktop,
   FaLightbulb,
   FaTachometerAlt,
-  FaRocket,
 } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import api from "./api/api";

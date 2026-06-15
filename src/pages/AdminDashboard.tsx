@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  FaUsers, FaProjectDiagram, FaTrash, FaShieldAlt, FaPlus, 
+  FaProjectDiagram, FaTrash, FaShieldAlt, FaPlus, 
   FaEdit, FaTimes, FaCog, FaBriefcase, FaCode, FaGlobe, 
   FaSignOutAlt, FaHome, FaChevronRight, FaSave, FaUser
 } from "react-icons/fa";
@@ -27,7 +27,7 @@ export default function AdminDashboard() {
   const [contentForm, setContentForm] = useState({ type: "post", title: "", description: "", mediaUrl: "", date: "", location: "" });
 
   // Queries
-  const { data: config } = useQuery({ 
+  useQuery({ 
     queryKey: ['config'], 
     queryFn: async () => { 
       const { data } = await api.get('/config'); 

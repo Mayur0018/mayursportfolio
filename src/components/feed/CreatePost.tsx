@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Image, Video, Calendar, PenTool, Send, X } from 'lucide-react';
+import { Image, Video, Send, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api/api';
 import useAuthStore from '../../store/authStore';
@@ -13,20 +13,20 @@ const CreatePost = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (newPost) => api.post('/posts', newPost),
+    mutationFn: (newPost: any) => api.post('/posts', newPost),
     onSuccess: () => {
-      queryClient.invalidateQueries(['posts']);
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
       setContent('');
       setMediaUrl('');
       setMediaType('none');
       toast.success('Post published!');
     },
-    onError: (err) => {
+    onError: (err: any) => {
       toast.error(err.response?.data?.message || 'Failed to post');
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!content.trim()) return;
     mutation.mutate({ content, mediaUrl, mediaType });

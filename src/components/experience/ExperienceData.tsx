@@ -2,13 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../../api/api";
 import ExperienceCard from "./ExperienceCardProps";
 
-interface Experience {
-  _id?: string;
-  company: any;
-  role: string;
-  duration: string;
-  description: string;
-}
+
 
 const defaultExperiences = [
   {

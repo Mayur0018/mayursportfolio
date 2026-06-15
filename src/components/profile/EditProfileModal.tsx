@@ -23,7 +23,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
   });
 
   const queryClient = useQueryClient();
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const setUserInfo = useAuthStore((state) => state.setUserInfo);
 
   useEffect(() => {
     if (user) {
@@ -43,7 +43,7 @@ export default function EditProfileModal({ isOpen, onClose, user }: EditProfileM
     mutationFn: (updatedData: any) => api.put("/users/profile", updatedData),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
-      setAuth(response.data);
+      setUserInfo(response.data);
       onClose();
     },
   });

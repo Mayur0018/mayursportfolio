@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -16,7 +16,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -24,7 +24,7 @@ const RegisterPage = () => {
       setUserInfo(data);
       toast.success('Registration successful!');
       navigate('/');
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);

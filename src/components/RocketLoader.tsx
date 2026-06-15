@@ -8,7 +8,7 @@ import * as THREE from "three";
 function Rocket({ launched }: { launched: boolean }) {
   const groupRef = useRef<THREE.Group>(null!);
   const flameRef = useRef<THREE.Mesh>(null!);
-  const [y, setY] = useState(-4);
+  const [, setY] = useState(-4);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
