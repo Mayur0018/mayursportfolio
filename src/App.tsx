@@ -150,10 +150,9 @@ export default function App() {
 
   const projects =
     projectsData && projectsData.length > 0 ? projectsData : DEFAULT_PROJECTS;
-  const experiences =
-    experienceData && experienceData.length > 0
-      ? experienceData
-      : DEFAULT_EXPERIENCE;
+  // Use API data if it's an array (even if empty). Only fall back to defaults
+  // when the API response is not available (undefined/null or non-array).
+  const experiences = Array.isArray(experienceData) ? experienceData : DEFAULT_EXPERIENCE;
   const techs =
     skillsData && skillsData.length > 0
       ? skillsData.map((s: any) => s.name)
