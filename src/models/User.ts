@@ -6,7 +6,21 @@ export interface IUser extends Document {
   email: string;
   password: string;
   avatar?: string;
+  coverImage?: string;
+  bio?: string;
+  title?: string;
+  skills?: string[];
+  socials?: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    website?: string;
+  };
+  followers?: mongoose.Types.ObjectId[];
+  following?: mongoose.Types.ObjectId[];
   role?: 'user' | 'admin';
+  isAvailable?: boolean;
+  resumeUrl?: string;
   matchPassword?: (enteredPassword: string) => Promise<boolean>;
 }
 

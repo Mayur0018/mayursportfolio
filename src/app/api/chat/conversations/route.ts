@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getConversationsService } from '@/services/chatService';
 import { getUserFromRequest } from '@/lib/auth';
 
-export async function GET() {
-  // Note: Next doesn't pass request here if you don't need it, but we need auth so accept req
-}
-
 export async function GET(req: NextRequest) {
   const user = await getUserFromRequest(req);
   if (!user) return NextResponse.json({ message: 'Not authorized' }, { status: 401 });
