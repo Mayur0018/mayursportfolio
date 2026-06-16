@@ -87,6 +87,28 @@ const DEFAULT_PROJECTS = [
   }
 ];
 
+const DEFAULT_EXPERIENCE = [
+  {
+    role: "Research",
+    description:
+      "I start by learning and researching based on ideas to find out the best solution for the users, goals, products, and requirements.",
+  },
+  {
+    role: "Planning",
+    description:
+      "Then I start to plan and structure the project process and budget based on the discovery phase before start the development.",
+  },
+  {
+    role: "Development",
+    description:
+      "After I completed all the processes, goals, and scopes, I started to do the development process such as creating basic codes and programming.",
+  },
+  {
+    role: "Testing & Launch",
+    description: "Finally testing the project and launch it for the users.",
+  },
+];
+
 const ARTICLES = [
   {
     title: "Why Next.js 14 is a Game Changer for Developers",
@@ -121,23 +143,15 @@ export default function App() {
     queryKey: ["skills"],
     queryFn: async () => (await api.get("/skills")).data,
   });
-  const {
-    data: experienceData,
-    isLoading: isExperienceLoading,
-    isError: isExperienceError,
-    error: experienceError,
-  } = useQuery({
+  const { data: experienceData } = useQuery({
     queryKey: ["experience"],
     queryFn: async () => (await api.get("/experience")).data,
-    retry: 1,
-    refetchOnWindowFocus: false,
-    onError: (error) => {
-      console.error("/api/experience fetch failed", error);
-    },
   });
 
   const projects =
     projectsData && projectsData.length > 0 ? projectsData : DEFAULT_PROJECTS;
+  // Use API data if it's an array (even if empty). Do not render build-time defaults
+  // in production — prefer an empty list until the client fetches real data.
   const experiences = Array.isArray(experienceData) ? experienceData : [];
   const techs =
     skillsData && skillsData.length > 0
@@ -542,16 +556,6 @@ export default function App() {
             <div className="relative">
               <div className="hidden md:block absolute left-[30%] top-2 bottom-2 w-px bg-gray-800" />
               <div className="space-y-12 md:space-y-16">
-                {isExperienceError && (
-                  <div className="text-center text-red-400 mb-8">
-                    Experience section failed to load. Check the browser console or API logs.
-                  </div>
-                )}
-                {!isExperienceError && !isExperienceLoading && experiences.length === 0 && (
-                  <div className="text-center text-slate-400 mb-8">
-                    No experience records found. Please verify the production database and `/api/experience` response.
-                  </div>
-                )}
                 {experiences.map((s: any, i: number) => (
                   <motion.div
                     key={i}

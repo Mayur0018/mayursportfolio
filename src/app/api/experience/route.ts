@@ -6,13 +6,11 @@ export async function GET(req: NextRequest) {
   try {
     let experiences = await getExperiencesService();
     if (!Array.isArray(experiences) || experiences.length === 0) {
-      console.warn("Experience collection empty in production; seeding default experience data.");
       await ensureDefaultExperiences();
       experiences = await getExperiencesService();
     }
     return NextResponse.json(experiences);
   } catch (err: any) {
-    console.error("/api/experience GET error", err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
