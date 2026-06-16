@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import api from '../api/api';
@@ -9,7 +10,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -19,7 +20,7 @@ const LoginPage = () => {
       const { data } = await api.post('/auth/login', { email, password });
       setUserInfo(data);
       toast.success('Login successful!');
-      navigate('/');
+      router.push('/');
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {
@@ -65,7 +66,7 @@ const LoginPage = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-slate-400 text-sm">
-          Don't have an account? <Link to="/register" className="text-red-400 hover:underline">Register</Link>
+          Don't have an account? <Link href="/register" className="text-red-400 hover:underline">Register</Link>
         </p>
       </motion.div>
     </div>

@@ -29,28 +29,28 @@ const fade = (delay = 0, y = 30) => ({
   initial: { opacity: 0, y },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 const slideLeft = (delay = 0) => ({
   initial: { opacity: 0, x: -40 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 const slideRight = (delay = 0) => ({
   initial: { opacity: 0, x: 40 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 const scaleUp = (delay = 0) => ({
   initial: { opacity: 0, scale: 0.8, y: 20 },
   whileInView: { opacity: 1, scale: 1, y: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 const DEFAULT_TECHS = [
@@ -68,7 +68,7 @@ const DEFAULT_PROJECTS = [
     title: "Mayur Poshak – Ecommerce Website",
     description: "A full-featured ecommerce application with cart system, authentication, and responsive UI built using React and Tailwind CSS.",
     tech: ["React", "Tailwind"],
-    imageSrc: mayurposhak,
+    imageSrc: mayurposhak.src,
     liveUrl: "https://mayur-poshak.vercel.app/"
   },
   {
@@ -82,7 +82,7 @@ const DEFAULT_PROJECTS = [
     title: "Doctor Appointment Booking System",
     description: "A doctor appointment booking platform with authentication, scheduling system, and backend integration using MERN stack.",
     tech: ["MERN", "React"],
-    imageSrc: doctorbooking,
+    imageSrc: doctorbooking.src,
     liveUrl: "https://doctor-appointment-booking-pink.vercel.app/"
   }
 ];
@@ -313,7 +313,7 @@ export default function App() {
             >
               <div className="bg-[#FFC83D] rounded-[32px] overflow-hidden aspect-square flex items-end justify-center w-full relative">
                 <img
-                  src={heroImg}
+                  src={heroImg.src}
                   alt="Developer"
                   className="w-[90%] h-[95%] object-contain object-bottom"
                 />

@@ -8,7 +8,7 @@ const CharacterIllustration: React.FC = () => {
       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       whileHover={{ rotateZ: -1, scale: 1.02 }}
     >
-      <img src={heroimg} alt="Hero illustration" className="w-full max-w-full md:max-w-full h-auto" />
+      <img src={heroimg.src} alt="Hero illustration" className="w-full max-w-full md:max-w-full h-auto" />
     </motion.figure>
   );
 };

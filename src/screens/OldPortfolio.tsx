@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import api from "../api/api";
 import useAuthStore from "../store/authStore";
@@ -124,11 +124,11 @@ export default function Portfolio() {
         >
           <div className="hidden md:flex gap-8 text-slate-400">
             <a href="#home" className="hover:text-red-400 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(59,130,246,0)] hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"><FaHome size={22} /></a>
-            <Link to="/messages" className="hover:text-red-400 hover:scale-110 transition-all relative">
+            <Link href="/messages" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaCommentAlt size={20} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
-            <Link to="/notifications" className="hover:text-red-400 hover:scale-110 transition-all relative">
+            <Link href="/notifications" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaBell size={22} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
@@ -145,7 +145,7 @@ export default function Portfolio() {
                 <button onClick={logout} className="text-xs text-red-400 hover:text-red-300 font-medium">Logout</button>
               </div>
             ) : (
-              <Link to="/login" className="bg-red-700 hover:bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
+              <Link href="/login" className="bg-red-700 hover:bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
             )}
           </div>
         </motion.div>

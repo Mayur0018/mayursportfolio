@@ -24,7 +24,7 @@ const defaultProjects: Project[] = [
     title: "Mayur Poshak – Ecommerce Website",
     description:
       "A full-featured ecommerce application with cart system, authentication, and responsive UI built using React and Tailwind CSS.",
-    imageSrc: mayurposhak,
+    imageSrc: mayurposhak.src,
     imageAlt: "Mayur Poshak Ecommerce",
     imagePosition: "left",
     liveUrl: "https://mayur-poshak.vercel.app/",
@@ -34,7 +34,7 @@ const defaultProjects: Project[] = [
     title: "Skull Candy – Product Landing Website",
     description:
       "A modern product landing page with clean UI and responsive layout built using React and Tailwind CSS.",
-    imageSrc: skullcandy,
+    imageSrc: skullcandy.src,
     imageAlt: "Skull Candy Website",
     imagePosition: "right",
     liveUrl: "https://skull-candy-je8x.vercel.app/",
@@ -44,7 +44,7 @@ const defaultProjects: Project[] = [
     title: "Doctor Appointment Booking System",
     description:
       "A doctor appointment booking platform with authentication, scheduling system, and backend integration using MERN stack.",
-    imageSrc: doctorbooking,
+    imageSrc: doctorbooking.src,
     imageAlt: "Doctor Appointment Booking",
     imagePosition: "left",
     liveUrl: "https://doctor-appointment-booking-pink.vercel.app/",

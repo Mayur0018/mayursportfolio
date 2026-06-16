@@ -8,12 +8,13 @@ import {
 import api from "../api/api";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import useAuthStore from "../store/authStore";
 
 export default function AdminDashboard() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const router = useRouter();
   const logout = useAuthStore((state) => state.logout);
   const [activeTab, setActiveTab] = useState("settings");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,7 +112,7 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    router.push('/login');
     toast.success('Logged out successfully');
   };
 
@@ -148,7 +149,7 @@ export default function AdminDashboard() {
         </nav>
 
         <div className="p-4 border-t border-white/5 space-y-2">
-          <Link to="/" className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition-all">
+          <Link href="/" className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition-all">
             <FaHome className="text-lg text-slate-500" />
             View Website
           </Link>

@@ -9,7 +9,7 @@ import Testimonial from "../components/testimonial/Testimonial";
 import EducationSection from "../components/education/EducationSection";
 import { FaHome, FaBell, FaSearch, FaLinkedin, FaGithub, FaPen, FaCommentAlt, FaBars, FaTimes, FaGraduationCap, FaEnvelope } from "react-icons/fa";
 import useAuthStore from "../store/authStore";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import CreatePost from "../components/feed/CreatePost";
 import PostFeed from "../components/feed/PostFeed";
 import SearchDropdown from "../components/search/SearchDropdown";
@@ -122,11 +122,11 @@ export default function Portfolio() {
         >
           <div className="hidden md:flex gap-8 text-slate-400">
             <a href="#home" className="hover:text-red-400 hover:scale-110 transition-all"><FaHome size={22} /></a>
-            <Link to="/messages" className="hover:text-red-400 hover:scale-110 transition-all relative">
+            <Link href="/messages" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaCommentAlt size={20} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
-            <Link to="/notifications" className="hover:text-red-400 hover:scale-110 transition-all relative">
+            <Link href="/notifications" className="hover:text-red-400 hover:scale-110 transition-all relative">
               <FaBell size={22} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </Link>
@@ -150,7 +150,7 @@ export default function Portfolio() {
                 <button onClick={logout} className="text-xs text-red-400 hover:text-red-300 font-medium">Logout</button>
               </div>
             ) : (
-              <Link to="/login" className="bg-red-700 hover:bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
+              <Link href="/login" className="bg-red-700 hover:bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm font-bold transition-all">Login</Link>
             )}
           </div>
         </motion.div>
@@ -289,8 +289,8 @@ export default function Portfolio() {
               <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaHome /> Home</a>
               <a href="#education" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaGraduationCap /> Education</a>
               <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaEnvelope /> Contact</a>
-              <Link to="/messages" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaCommentAlt /> Messages</Link>
-              <Link to="/notifications" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaBell /> Notifications</Link>
+              <Link href="/messages" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaCommentAlt /> Messages</Link>
+              <Link href="/notifications" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaBell /> Notifications</Link>
             </nav>
           </motion.div>
         )}

@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import api from '../api/api';
@@ -13,7 +14,7 @@ const RegisterPage = () => {
     password: '',
   });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
   const setUserInfo = useAuthStore((state) => state.setUserInfo);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -23,7 +24,7 @@ const RegisterPage = () => {
       const { data } = await api.post('/auth/register', formData);
       setUserInfo(data);
       toast.success('Registration successful!');
-      navigate('/');
+      router.push('/');
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Registration failed');
     } finally {
@@ -89,7 +90,7 @@ const RegisterPage = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-slate-400 text-sm">
-          Already have an account? <Link to="/login" className="text-red-400 hover:underline">Login</Link>
+          Already have an account? <Link href="/login" className="text-red-400 hover:underline">Login</Link>
         </p>
       </motion.div>
     </div>
