@@ -37,7 +37,9 @@ export const ExperienceSection: React.FC = () => {
     }
   });
 
-  const displayData = experiences && experiences.length > 0 ? experiences : defaultExperiences;
+  // Use API data if it's an array (even if empty). Only fall back to defaults
+  // when the API response is not available (undefined/null or non-array).
+  const displayData = Array.isArray(experiences) ? experiences : defaultExperiences;
 
   if (isLoading) return null;
 
