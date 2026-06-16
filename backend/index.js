@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const dotenv = require('dotenv');
+const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
@@ -19,7 +21,18 @@ const experienceRoutes = require('./routes/experienceRoutes');
 const skillRoutes = require('./routes/skillRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 
+// Load environment variables. First try local backend .env, then fall back to project root .env
 dotenv.config();
+if (!process.env.MONGO_URI) {
+  // Load only MONGO_URI from the project root .env to avoid overriding backend PORT
+  const rootEnv = path.resolve(__dirname, '../.env');
+  try {
+    const parsed = dotenv.parse(fs.readFileSync(rootEnv));
+    if (parsed.MONGO_URI) process.env.MONGO_URI = parsed.MONGO_URI;
+  } catch (err) {
+    // ignore if root .env doesn't exist
+  }
+}
 connectDB();
 
 const app = express();

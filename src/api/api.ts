@@ -2,7 +2,8 @@ import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+  // Use relative API path so requests go to the same host (Next.js API routes)
+  baseURL: process.env.NEXT_PUBLIC_API_URL || '/api',
 });
 
 api.interceptors.request.use((config) => {
