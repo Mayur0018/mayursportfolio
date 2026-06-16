@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:db": "node ./scripts/seedExperiences.js"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
