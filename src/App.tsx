@@ -22,7 +22,9 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import api from "./api/api";
 import heroImg from "./assets/heroimg.png";
-
+import mayurposhak from "./assets/mayurposhak.png";
+import skullcandy from "./assets/skullcandy.png";
+import doctorbooking from "./assets/healthbuddy.png";
 const fade = (delay = 0, y = 30) => ({
   initial: { opacity: 0, y },
   whileInView: { opacity: 1, y: 0 },
@@ -63,47 +65,26 @@ const DEFAULT_TECHS = [
 
 const DEFAULT_PROJECTS = [
   {
-    title: "Portfolio Website",
-    description: "Personal portfolio built with Next.js and Tailwind CSS.",
-    tech: ["Next.js"],
-    imageSrc:
-      "https://images.unsplash.com/photo-1507238692062-54e7f3299718?w=700&q=80",
+    title: "Mayur Poshak – Ecommerce Website",
+    description: "A full-featured ecommerce application with cart system, authentication, and responsive UI built using React and Tailwind CSS.",
+    tech: ["React", "Tailwind"],
+    imageSrc: mayurposhak,
+    liveUrl: "https://mayur-poshak.vercel.app/"
   },
   {
-    title: "Task Manager App",
-    description: "A task management app with modern UI and drag & drop.",
-    tech: ["React.js"],
-    imageSrc:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80",
+    title: "Skull Candy – Product Landing Website",
+    description: "A modern product landing page with clean UI and responsive layout built using React and Tailwind CSS.",
+    tech: ["React", "Tailwind"],
+    imageSrc: skullcandy,
+    liveUrl: "https://skull-candy-je8x.vercel.app/"
   },
   {
-    title: "E-Commerce Store",
-    description: "Full featured ecommerce platform with cart and payments.",
-    tech: ["Next.js"],
-    imageSrc:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80",
-  },
-  {
-    title: "Blog Website",
-    description: "A modern blog website to share articles and thoughts.",
-    tech: ["Next.js"],
-    imageSrc:
-      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=700&q=80",
-  },
-  {
-    title: "Weather App",
-    description: "Real-time weather app with clean UI and API integration.",
-    tech: ["JavaScript"],
-    imageSrc:
-      "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=700&q=80",
-  },
-  {
-    title: "Expense Tracker",
-    description: "Track income and expenses with charts and insights.",
-    tech: ["React.js"],
-    imageSrc:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80",
-  },
+    title: "Doctor Appointment Booking System",
+    description: "A doctor appointment booking platform with authentication, scheduling system, and backend integration using MERN stack.",
+    tech: ["MERN", "React"],
+    imageSrc: doctorbooking,
+    liveUrl: "https://doctor-appointment-booking-pink.vercel.app/"
+  }
 ];
 
 const DEFAULT_EXPERIENCE = [
