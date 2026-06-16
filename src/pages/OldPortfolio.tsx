@@ -411,7 +411,7 @@ export default function Portfolio() {
             <div className="space-y-4">
               {[
                 { name: 'Github', handle: '@mayur0018', icon: <FaGithub />, link: 'https://github.com/mayur0018', color: 'from-slate-700 to-slate-900' },
-                { name: 'LinkedIn', handle: '/in/mayur-nishad', icon: <FaLinkedin />, link: 'https://linkedin.com/in/mayur-nishad', color: 'from-blue-600 to-blue-800' },
+                { name: 'LinkedIn', handle: '/in/mayur-nishad-bb0751236', icon: <FaLinkedin />, link: 'https://www.linkedin.com/in/mayur-nishad-bb0751236/?skipRedirect=true', color: 'from-blue-600 to-blue-800' },
                 { name: 'Twitter', handle: '@mayur_codes', icon: <FaTwitter />, link: 'https://twitter.com', color: 'from-sky-400 to-sky-600' },
               ].map((conn, i) => (
                 <motion.div 

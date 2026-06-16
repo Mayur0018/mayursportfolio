@@ -23,11 +23,32 @@ import { useQuery } from "@tanstack/react-query";
 import api from "./api/api";
 import heroImg from "./assets/heroimg.png";
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
+const fade = (delay = 0, y = 30) => ({
+  initial: { opacity: 0, y },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5, delay },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+});
+
+const slideLeft = (delay = 0) => ({
+  initial: { opacity: 0, x: -40 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+});
+
+const slideRight = (delay = 0) => ({
+  initial: { opacity: 0, x: 40 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+});
+
+const scaleUp = (delay = 0) => ({
+  initial: { opacity: 0, scale: 0.8, y: 20 },
+  whileInView: { opacity: 1, scale: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
 });
 
 const DEFAULT_TECHS = [
@@ -186,7 +207,14 @@ export default function App() {
             <FaBars size={24} />
           </button>
           <div className="hidden md:flex items-center gap-10 text-sm font-semibold">
-            {["Home", "About", "Projects", "Articles", "Contact"].map((l) => (
+            {[
+              "Home",
+              "About",
+              "Education",
+              "Projects",
+              "Articles",
+              "Contact",
+            ].map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}
@@ -230,18 +258,23 @@ export default function App() {
               </div>
 
               <nav className="flex flex-col gap-8 text-2xl font-black text-[#111] uppercase tracking-wider text-center flex-1 justify-center">
-                {["Home", "About", "Projects", "Articles", "Contact"].map(
-                  (l) => (
-                    <a
-                      key={l}
-                      href={`#${l.toLowerCase()}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="hover:text-[#E53E3E] transition-colors"
-                    >
-                      {l}
-                    </a>
-                  ),
-                )}
+                {[
+                  "Home",
+                  "About",
+                  "Education",
+                  "Projects",
+                  "Articles",
+                  "Contact",
+                ].map((l) => (
+                  <a
+                    key={l}
+                    href={`#${l.toLowerCase()}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="hover:text-[#E53E3E] transition-colors"
+                  >
+                    {l}
+                  </a>
+                ))}
                 <a
                   href="#contact"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -262,7 +295,7 @@ export default function App() {
                     icon: <FaLinkedin />,
                     href:
                       config?.socials?.linkedin ||
-                      "https://linkedin.com/in/mayur-nishad",
+                      "https://www.linkedin.com/in/mayur-nishad-bb0751236/?skipRedirect=true",
                   },
                   {
                     icon: <FaTwitter />,
@@ -359,7 +392,7 @@ export default function App() {
                     icon: <FaLinkedin />,
                     href:
                       config?.socials?.linkedin ||
-                      "https://linkedin.com/in/mayur-nishad",
+                      "https://www.linkedin.com/in/mayur-nishad-bb0751236/?skipRedirect=true",
                   },
                   {
                     icon: <FaTwitter />,
@@ -433,7 +466,7 @@ export default function App() {
         {/* ── ABOUT ME ── */}
         <section id="about" className="py-16 px-6 md:px-16 max-w-5xl mx-auto">
           <motion.h2
-            {...fade()}
+              {...slideLeft()}
             style={{ fontFamily: "'Playfair Display',serif" }}
             className="text-3xl md:text-4xl font-black mb-6 uppercase"
           >
@@ -533,7 +566,7 @@ export default function App() {
         <section className="bg-[#111] text-white py-24 px-6 md:px-16 mt-16">
           <div className="max-w-4xl mx-auto">
             <motion.h2
-              {...fade()}
+              {...slideLeft()}
               style={{ fontFamily: "'Playfair Display',serif" }}
               className="text-3xl md:text-4xl font-black uppercase text-center mb-16"
             >
@@ -577,6 +610,234 @@ export default function App() {
           </div>
         </section>
 
+        {/* ── EDUCATION ── */}
+        <section
+          id="education"
+          className="py-24 px-6 md:px-16 max-w-6xl mx-auto"
+        >
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+            <motion.h2
+              {...slideLeft()}
+              style={{ fontFamily: "'Playfair Display',serif" }}
+              className="text-3xl md:text-4xl font-black uppercase leading-[1.2] max-w-xl"
+            >
+              Education &amp;
+              <br className="hidden md:block" /> Certifications
+            </motion.h2>
+            <motion.p {...slideRight(0.1)} className="text-gray-500 text-sm max-w-xs">
+              My academic background and continuous learning journey.
+            </motion.p>
+          </div>
+
+          {/* Degrees */}
+          <motion.div {...fade(0.1)} className="mb-12">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[#C53030] mb-6">
+              Academic Degrees
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                {
+                  degree: "Master of Computer Applications",
+                  field: "MCA – Computer Applications",
+                  institution: "Gujarat Technological University (GTU)",
+                  period: "Sep 2023 – Jul 2025",
+                  grade: "Completed",
+                  highlights: [
+                    "HTML5",
+                    "CSS3",
+                    "JavaScript",
+                    "React",
+                    "Node.js",
+                    "MongoDB",
+                    "DSA",
+                    "DBMS",
+                  ],
+                  emoji: "🎓",
+                },
+                {
+                  degree: "Bachelor of Computer Applications",
+                  field: "BCA – Computer Engineering",
+                  institution: "Gujarat University",
+                  period: "Sep 2020 – Apr 2023",
+                  grade: "Completed",
+                  highlights: [
+                    "PHP",
+                    "SQL",
+                    "HTML5",
+                    "CSS3",
+                    "JavaScript",
+                    "C++",
+                  ],
+                  emoji: "🏛️",
+                },
+              ].map((d, i) => (
+                <motion.div
+                  key={i}
+                  {...scaleUp(i * 0.15)}
+                  className="bg-white rounded-2xl p-6 border border-gray-100 card-lift"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center text-[#C53030] text-xl flex-shrink-0">
+                      {d.emoji}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-black text-base text-[#111]">
+                        {d.degree}
+                      </h4>
+                      <p className="text-[#C53030] text-sm font-semibold">
+                        {d.field}
+                      </p>
+                      <p className="text-gray-500 text-xs mt-1">
+                        {d.institution} · {d.period} · {d.grade}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {d.highlights.map((h) => (
+                      <span
+                        key={h}
+                        className="text-xs font-semibold px-3 py-1 rounded-full bg-red-50 text-[#C53030]"
+                      >
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Certifications */}
+          <motion.div {...fade(0.2)} className="mb-12">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[#C53030] mb-6">
+              Licenses & Certifications
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {[
+                {
+                  name: "Complete Web Development Course",
+                  issuer: "Udemy",
+                  date: "2024",
+                  emoji: "🌐",
+                },
+                {
+                  name: "Figma UI UX Design Essentials",
+                  issuer: "Udemy",
+                  date: "Jul 2025",
+                  emoji: "🎨",
+                },
+                {
+                  name: "Node Certification Test",
+                  issuer: "Complete Coding · Prashant Sir",
+                  date: "May 2025",
+                  emoji: "🟢",
+                },
+                {
+                  name: "React Hooks Crash Course",
+                  issuer: "GreatStack",
+                  date: "Mar 2025",
+                  emoji: "⚛️",
+                },
+                {
+                  name: "JavaScript Fundamentals",
+                  issuer: "GreatStack",
+                  date: "Mar 2025",
+                  emoji: "⚡",
+                },
+                {
+                  name: "Namaste JavaScript",
+                  issuer: "NamasteDev.com",
+                  date: "Mar 2025",
+                  emoji: "🙏",
+                },
+                {
+                  name: "React & Redux Certification",
+                  issuer: "Complete Coding · Prashant Sir",
+                  date: "Mar 2024",
+                  emoji: "🔁",
+                },
+              ].map((c, i) => (
+                <motion.div
+                  key={i}
+                  {...fade(i * 0.08)}
+                  className="bg-white rounded-2xl p-5 border border-gray-100 card-lift text-center"
+                >
+                  <div className="text-3xl mb-3">{c.emoji}</div>
+                  <h4 className="font-black text-sm text-[#111] mb-1 leading-tight">
+                    {c.name}
+                  </h4>
+                  <p className="text-xs text-gray-500">{c.issuer}</p>
+                  <p className="text-xs text-[#C53030] font-semibold mt-2">
+                    {c.date}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Courses */}
+          <motion.div {...fade(0.3)}>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[#C53030] mb-6">
+              Courses & Self-Learning
+            </h3>
+            <div className="space-y-4">
+              {[
+                {
+                  name: "Complete Web Development Bootcamp",
+                  platform: "Udemy",
+                  progress: 100,
+                  hours: "60h+",
+                },
+                {
+                  name: "Namaste JavaScript (Deep Dive)",
+                  platform: "NamasteDev.com · Akshay Saini",
+                  progress: 100,
+                  hours: "20h+",
+                },
+                {
+                  name: "React Hooks & Redux Mastery",
+                  platform: "GreatStack + YouTube",
+                  progress: 100,
+                  hours: "25h+",
+                },
+                {
+                  name: "Figma UI UX Design Essentials",
+                  platform: "Udemy",
+                  progress: 100,
+                  hours: "15h+",
+                },
+              ].map((c, i) => (
+                <motion.div
+                  key={i}
+                  {...slideLeft(i * 0.1)}
+                  className="bg-white rounded-2xl px-6 py-4 border border-gray-100 flex flex-col sm:flex-row sm:items-center gap-4 card-lift"
+                >
+                  <div className="flex-1">
+                    <p className="font-bold text-sm text-[#111]">{c.name}</p>
+                    <p className="text-xs text-gray-500">
+                      {c.platform} · {c.hours}
+                    </p>
+                  </div>
+                  <div className="sm:w-40">
+                    <div className="flex justify-between text-xs mb-1">
+                      <span className="text-gray-400">Progress</span>
+                      <span className="font-bold text-[#C53030]">
+                        {c.progress}%
+                      </span>
+                    </div>
+                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-[#C53030] to-[#E53E3E] rounded-full"
+                        style={{ width: `${c.progress}%` }}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
         {/* ── PROJECTS ── */}
         <section
           id="projects"
@@ -584,7 +845,7 @@ export default function App() {
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
             <motion.h2
-              {...fade()}
+              {...slideLeft()}
               style={{ fontFamily: "'Playfair Display',serif" }}
               className="text-3xl md:text-4xl font-black uppercase leading-[1.2] max-w-xl"
             >
@@ -668,7 +929,7 @@ export default function App() {
         {/* ── TESTIMONIALS ── */}
         <section className="py-24 px-6 md:px-16 max-w-5xl mx-auto">
           <motion.h2
-            {...fade()}
+              {...slideLeft()}
             style={{ fontFamily: "'Playfair Display',serif" }}
             className="text-2xl md:text-3xl font-black uppercase mb-12"
           >
@@ -723,7 +984,7 @@ export default function App() {
         >
           <div className="flex justify-between items-center mb-12">
             <motion.h2
-              {...fade()}
+              {...slideLeft()}
               style={{ fontFamily: "'Playfair Display',serif" }}
               className="text-2xl md:text-3xl font-black uppercase leading-[1.2] max-w-xs md:max-w-none"
             >
@@ -817,62 +1078,212 @@ export default function App() {
           </div>
         </div>
 
-        <section id="contact" className="pt-24 pb-12 px-6 md:px-16 text-center">
-          <div className="max-w-2xl mx-auto">
-            <motion.h2
-              {...fade()}
-              style={{ fontFamily: "'Playfair Display',serif" }}
-              className="text-2xl md:text-3xl font-black uppercase mb-4"
-            >
-              Interested In Working Together?
-            </motion.h2>
-            <motion.p {...fade(0.1)} className="text-gray-500 text-sm mb-2">
-              Let's build something amazing!
-            </motion.p>
-            <motion.a
-              {...fade(0.2)}
-              href="mailto:mayurnishad.dev@gmail.com"
-              className="inline-block text-lg md:text-xl font-bold text-[#C53030] hover:text-[#111] transition-colors mb-8"
-            >
-              mayurnish18@gmail.com
-            </motion.a>
+        <section id="contact" className="py-24 px-6 md:px-16">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <motion.h2
+              {...slideLeft()}
+                style={{ fontFamily: "'Playfair Display',serif" }}
+                className="text-3xl md:text-4xl font-black uppercase mb-3"
+              >
+                Let's Work Together
+              </motion.h2>
+              <motion.p {...slideRight(0.1)} className="text-gray-500 text-sm">
+                Reach out via message, book a call, or find quick answers below.
+              </motion.p>
+            </div>
+
+            {/* Contact Cards row */}
             <motion.div
-              {...fade(0.3)}
-              className="flex justify-center gap-4 mb-12"
+              {...fade(0.15)}
+              className="grid sm:grid-cols-3 gap-5 mb-12"
             >
               {[
                 {
-                  icon: <FaGithub />,
-                  href:
-                    config?.socials?.github || "https://github.com/mayur0018",
+                  emoji: "✉️",
+                  title: "Email Me",
+                  detail: "mayurnish18@gmail.com",
+                  href: "mailto:mayurnish18@gmail.com",
+                  sub: "Reply within 24h",
                 },
                 {
-                  icon: <FaLinkedin />,
+                  emoji: "💼",
+                  title: "LinkedIn",
+                  detail: "linkedin.com/in/mayur-nishad-bb0751236",
                   href:
                     config?.socials?.linkedin ||
-                    "https://linkedin.com/in/mayur-nishad",
+                    "https://www.linkedin.com/in/mayur-nishad-bb0751236/?skipRedirect=true",
+                  sub: "Connect professionally",
                 },
-                { icon: <FaTwitter />, href: config?.socials?.twitter || "#" },
-                { icon: <FaGlobe />, href: "#" },
-              ].map((s, i) => (
-                <a
+                {
+                  emoji: "🐙",
+                  title: "GitHub",
+                  detail: "github.com/mayur0018",
+                  href:
+                    config?.socials?.github || "https://github.com/mayur0018",
+                  sub: "See my code",
+                },
+              ].map((c, i) => (
+                <motion.a
                   key={i}
-                  href={s.href}
+                  {...fade(i * 0.1)}
+                  href={c.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#111] hover:text-white hover:border-[#111] transition-all"
+                  className="bg-white rounded-2xl p-6 border border-gray-100 card-lift flex flex-col items-center text-center hover:border-[#C53030]/30 transition-all group"
                 >
-                  {s.icon}
-                </a>
+                  <div className="text-3xl mb-3">{c.emoji}</div>
+                  <h4 className="font-black text-sm text-[#111] mb-1">
+                    {c.title}
+                  </h4>
+                  <p className="text-xs text-[#C53030] font-semibold break-all">
+                    {c.detail}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">{c.sub}</p>
+                </motion.a>
               ))}
             </motion.div>
-            <div className="text-gray-400 text-xs font-medium">
-              © 2026 {config?.siteName || "Mayur Nishad"}. All Rights Reserved.
-            </div>
+
+            {/* Contact form */}
+            <motion.div
+              {...scaleUp(0.2)}
+              className="bg-white rounded-3xl border border-gray-100 p-8 md:p-12 mb-8"
+            >
+              <div className="grid md:grid-cols-2 gap-10">
+                {/* Form */}
+                <div>
+                  <h3
+                    style={{ fontFamily: "'Playfair Display',serif" }}
+                    className="text-xl font-black mb-6"
+                  >
+                    Send a Message
+                  </h3>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const fd = new FormData(e.target as HTMLFormElement);
+                      const name = fd.get("name") as string;
+                      const email = fd.get("email") as string;
+                      const msg = fd.get("message") as string;
+                      if (!name || !email || !msg) return;
+                      window.location.href = `mailto:mayurnish18@gmail.com?subject=${encodeURIComponent(`Portfolio contact from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`)}`;
+                    }}
+                    className="flex flex-col gap-4"
+                  >
+                    <input
+                      name="name"
+                      required
+                      placeholder="Your Name"
+                      className="border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#C53030] transition-colors"
+                    />
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="Email Address"
+                      className="border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#C53030] transition-colors"
+                    />
+                    <textarea
+                      name="message"
+                      required
+                      placeholder="Your message..."
+                      rows={4}
+                      className="border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#C53030] transition-colors resize-none"
+                    />
+                    <button
+                      type="submit"
+                      className="bg-[#111] text-white px-8 py-3 rounded-full text-sm font-bold hover:bg-[#C53030] transition-colors w-fit"
+                    >
+                      Send Message
+                    </button>
+                  </form>
+                </div>
+
+                {/* FAQ */}
+                <div>
+                  <h3
+                    style={{ fontFamily: "'Playfair Display',serif" }}
+                    className="text-xl font-black mb-6"
+                  >
+                    Frequently Asked
+                  </h3>
+                  <div className="space-y-3">
+                    {[
+                      {
+                        q: "What is your tech stack?",
+                        a: "React, Next.js, TypeScript, Node.js, MongoDB, and Tailwind CSS.",
+                      },
+                      {
+                        q: "Are you available for freelance?",
+                        a: "Yes! I'm open to freelance, contract, and full-time roles.",
+                      },
+                      {
+                        q: "How long does a project take?",
+                        a: "Landing pages: 1–2 weeks. Full apps: 4–8 weeks depending on scope.",
+                      },
+                      {
+                        q: "Do you work internationally?",
+                        a: "Absolutely. I work with clients globally and am flexible with time zones.",
+                      },
+                    ].map((item, i) => (
+                      <details
+                        key={i}
+                        className="group border border-gray-100 rounded-xl overflow-hidden"
+                      >
+                        <summary className="flex items-center justify-between px-5 py-3.5 cursor-pointer list-none text-sm font-bold text-[#111] hover:bg-gray-50">
+                          {item.q}
+                          <span className="text-gray-400 group-open:rotate-180 transition-transform duration-200 text-xs">
+                            ▼
+                          </span>
+                        </summary>
+                        <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100">
+                          {item.a}
+                        </p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Footer */}
+            <motion.div {...fade(0.3)} className="text-center">
+              <div className="flex justify-center gap-4 mb-6">
+                {[
+                  {
+                    icon: <FaGithub />,
+                    href:
+                      config?.socials?.github || "https://github.com/mayur0018",
+                  },
+                  {
+                    icon: <FaLinkedin />,
+                    href: config?.socials?.linkedin || "https://www.linkedin.com/in/mayur-nishad-bb0751236/?skipRedirect=true"
+                  },
+                  {
+                    icon: <FaTwitter />,
+                    href: config?.socials?.twitter || "#",
+                  },
+                  { icon: <FaGlobe />, href: "#" },
+                ].map((s, i) => (
+                  <a
+                    key={i}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#111] hover:text-white hover:border-[#111] transition-all"
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+              <div className="text-gray-400 text-xs font-medium">
+                © 2026 {config?.siteName || "Mayur Nishad"}. All Rights
+                Reserved.
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>
     </>
   );
 }
-

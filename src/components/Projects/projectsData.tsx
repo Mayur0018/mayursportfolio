@@ -27,7 +27,7 @@ const defaultProjects: Project[] = [
     imageSrc: mayurposhak,
     imageAlt: "Mayur Poshak Ecommerce",
     imagePosition: "left",
-    liveUrl: "https://mayur-poshak-ifcj.vercel.app/",
+    liveUrl: "https://mayur-poshak.vercel.app/",
   },
   {
     number: "02",

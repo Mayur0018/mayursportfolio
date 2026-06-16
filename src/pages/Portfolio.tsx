@@ -6,7 +6,8 @@ import AboutMe from "../components/about/AboutMe";
 import ProjectsSection from "../components/Projects/projectsData";
 import ContactForm from "../components/contact/ContactForm";
 import Testimonial from "../components/testimonial/Testimonial";
-import { FaHome, FaBell, FaSearch, FaLinkedin, FaGithub, FaPen, FaCommentAlt, FaBars, FaTimes } from "react-icons/fa";
+import EducationSection from "../components/education/EducationSection";
+import { FaHome, FaBell, FaSearch, FaLinkedin, FaGithub, FaPen, FaCommentAlt, FaBars, FaTimes, FaGraduationCap, FaEnvelope } from "react-icons/fa";
 import useAuthStore from "../store/authStore";
 import { Link } from "react-router-dom";
 import CreatePost from "../components/feed/CreatePost";
@@ -200,6 +201,9 @@ export default function Portfolio() {
           <motion.div id="skills" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <MySkills />
           </motion.div>
+          <motion.div id="education" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <EducationSection />
+          </motion.div>
           <motion.div id="projects" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <ProjectsSection />
           </motion.div>
@@ -283,6 +287,8 @@ export default function Portfolio() {
 
             <nav className="flex flex-col gap-6 text-lg font-bold text-slate-300 mb-8">
               <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaHome /> Home</a>
+              <a href="#education" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaGraduationCap /> Education</a>
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaEnvelope /> Contact</a>
               <Link to="/messages" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaCommentAlt /> Messages</Link>
               <Link to="/notifications" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 hover:text-red-400"><FaBell /> Notifications</Link>
             </nav>
