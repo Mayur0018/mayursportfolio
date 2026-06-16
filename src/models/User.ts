@@ -42,13 +42,12 @@ userSchema.methods.matchPassword = async function (enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
   // @ts-ignore
-  if (!this.isModified('password')) return next();
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
   // @ts-ignore
   this.password = await bcrypt.hash(this.password, salt);
-  next();
 });
 
 const User: Model<IUser> = (mongoose.models.User as Model<IUser>) || mongoose.model<IUser>('User', userSchema);

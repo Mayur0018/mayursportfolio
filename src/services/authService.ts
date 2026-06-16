@@ -23,7 +23,7 @@ export async function registerUserService({ name, username, email, password }: {
 export async function authUserService({ email, password }: { email: string; password: string; }) {
   await connectMongo();
   const user = await User.findOne({ email });
-  if (user && (await user.matchPassword(password))) {
+  if (user && user.matchPassword && (await user.matchPassword(password))) {
     return {
       _id: user._id,
       name: user.name,
