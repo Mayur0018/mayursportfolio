@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getExperiencesService, createExperienceService } from '@/services/experienceService';
+import { getExperiencesService, ensureDefaultExperiences, createExperienceService } from '@/services/experienceService';
 import { getUserFromRequest } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
   try {
-    const experiences = await getExperiencesService();
+    let experiences = await getExperiencesService();
+    if (!Array.isArray(experiences) || experiences.length === 0) {
+      await ensureDefaultExperiences();
+      experiences = await getExperiencesService();
+    }
     return NextResponse.json(experiences);
   } catch (err: any) {
     return NextResponse.json({ message: err.message }, { status: 500 });
