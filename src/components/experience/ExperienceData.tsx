@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../api/api";
 import ExperienceCard from "./ExperienceCardProps";
@@ -37,11 +38,14 @@ export const ExperienceSection: React.FC = () => {
     }
   });
 
-  // Use API data if it's an array (even if empty). Only fall back to defaults
-  // when the API response is not available (undefined/null or non-array).
-  const displayData = Array.isArray(experiences) ? experiences : defaultExperiences;
+  // Prevent server-side rendering from showing defaults. Only render on client
+  // after mount so the client API response is used instead of build-time defaults.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
 
-  if (isLoading) return null;
+  if (!mounted || isLoading) return null;
+
+  const displayData = Array.isArray(experiences) ? experiences : [];
 
   return (
     <section

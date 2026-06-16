@@ -150,9 +150,9 @@ export default function App() {
 
   const projects =
     projectsData && projectsData.length > 0 ? projectsData : DEFAULT_PROJECTS;
-  // Use API data if it's an array (even if empty). Only fall back to defaults
-  // when the API response is not available (undefined/null or non-array).
-  const experiences = Array.isArray(experienceData) ? experienceData : DEFAULT_EXPERIENCE;
+  // Use API data if it's an array (even if empty). Do not render build-time defaults
+  // in production — prefer an empty list until the client fetches real data.
+  const experiences = Array.isArray(experienceData) ? experienceData : [];
   const techs =
     skillsData && skillsData.length > 0
       ? skillsData.map((s: any) => s.name)
