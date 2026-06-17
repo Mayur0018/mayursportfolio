@@ -13,3 +13,5 @@ export async function GET(req: NextRequest, context: { params: Promise<{ id: str
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
+
+

@@ -31,3 +31,5 @@ export async function DELETE(req: NextRequest, context: { params: Promise<{ id: 
     return NextResponse.json({ message: error.message }, { status: error.message === 'Project not found' ? 404 : 500 });
   }
 }
+
+

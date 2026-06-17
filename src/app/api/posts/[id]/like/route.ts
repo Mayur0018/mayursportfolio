@@ -13,3 +13,5 @@ export async function PUT(req: NextRequest, context: { params: Promise<{ id: str
     return NextResponse.json({ message: err.message }, { status: err.message === 'Post not found' ? 404 : 500 });
   }
 }
+
+
