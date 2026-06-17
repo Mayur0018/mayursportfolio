@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = process.env.MONGO_URI || process.env.NEXT_PUBLIC_MONGO_URI;
-
-if (!MONGO_URI) {
-  throw new Error('Please define the MONGO_URI environment variable inside .env');
-}
+// Support several common environment variable names used locally and on hosts
+const MONGO_URI = process.env.MONGODB_URI || process.env.MONGO_URI || process.env.NEXT_PUBLIC_MONGO_URI;
 
 /**
  * Mongoose connection helper for serverless environments.
@@ -13,19 +10,21 @@ if (!MONGO_URI) {
  */
 let cached: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } = (global as any)._mongo || { conn: null, promise: null };
 
-if (!cached.promise) {
-  const opts = {
-    // Recommended options
-    bufferCommands: false,
-    // other options can go here
-  } as mongoose.ConnectOptions;
-
-  cached.promise = mongoose.connect(MONGO_URI, opts).then((m) => m);
-  (global as any)._mongo = cached;
-}
-
 export default async function connectMongo() {
+  if (!MONGO_URI) {
+    throw new Error('Please define MONGODB_URI (or MONGO_URI / NEXT_PUBLIC_MONGO_URI) in your environment');
+  }
+
   if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    } as mongoose.ConnectOptions;
+    cached.promise = mongoose.connect(MONGO_URI as string, opts).then((m) => m);
+    (global as any)._mongo = cached;
+  }
+
   cached.conn = await cached.promise;
   return cached.conn;
 }
