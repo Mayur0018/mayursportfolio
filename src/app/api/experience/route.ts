@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
     }
     return NextResponse.json(experiences);
   } catch (err: any) {
+    console.error(err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
@@ -23,6 +24,7 @@ export async function POST(req: NextRequest) {
     const exp = await createExperienceService(body);
     return NextResponse.json(exp, { status: 201 });
   } catch (err: any) {
+    console.error(err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }

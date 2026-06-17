@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
     const projects = await getProjectsService();
     return NextResponse.json(projects);
   } catch (error: any) {
+    console.error(error);
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
@@ -21,6 +22,7 @@ export async function POST(req: NextRequest) {
     const project = await createProjectService(body);
     return NextResponse.json(project, { status: 201 });
   } catch (error: any) {
+    console.error(error);
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }

@@ -7,6 +7,7 @@ export async function GET() {
     const skills = await getSkillsService();
     return NextResponse.json(skills);
   } catch (err: any) {
+    console.error(err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
@@ -19,6 +20,7 @@ export async function POST(req: NextRequest) {
     const skill = await createSkillService(body);
     return NextResponse.json(skill, { status: 201 });
   } catch (err: any) {
+    console.error(err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }

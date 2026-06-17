@@ -7,6 +7,7 @@ export async function GET() {
     const config = await getConfigService();
     return NextResponse.json(config);
   } catch (err: any) {
+    console.error(err);
     return NextResponse.json({ message: err.message }, { status: 500 });
   }
 }
